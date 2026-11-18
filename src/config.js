@@ -45,6 +45,28 @@ export const CONFIG = {
       thresholds: [25, 55, 85], sprintDelay: 5, attackDelay: 1,
       blockDuration: 0.5, knockPower: 3,
     },
+    // Balance-agent demo: three deliberately overpowered animatronics, each on one night.
+    // They are planted so the balance agent (balance-agent/) has real problems to catch.
+    // `nights` lists where each one appears; configForNight turns it on there and leaves
+    // its numbers exactly as written here (no night scaling).
+    sprocket: {
+      // Too fast to react to: the doorway warning lasts 0.2 s.
+      enabled: false, nights: [2], name: 'Sprocket', side: 'left', color: '#7fd1c7',
+      route: ['5', 'door'], startAt: 45, moveInterval: [5, 11], attackDelay: 0.2, blockDuration: 2,
+      retreatIndex: 0,
+    },
+    brassbones: {
+      // Too expensive to stop: the right door must stay shut 30 s, and he is back 3–5 s later.
+      enabled: false, nights: [3], name: 'Brassbones', side: 'right', color: '#d4b14a',
+      route: ['3', '4B', 'door'], startAt: 40, moveInterval: [3, 5], attackDelay: 6, blockDuration: 30,
+      retreatIndex: 1,
+    },
+    hush: {
+      // Impossible to see: never on camera, never in the doorway light, no warning text or sound.
+      enabled: false, nights: [5], name: 'Hush', side: 'left', color: '#9aa3ad', stealth: true,
+      route: ['3', '2B', 'door'], startAt: 70, moveInterval: [14, 20], attackDelay: 3, blockDuration: 3,
+      retreatIndex: 0,
+    },
   },
 };
 
@@ -65,6 +87,11 @@ export function configForNight(night = 1) {
   const config = structuredClone(CONFIG);
   config.power.base *= scale.drain;
   for (const rule of Object.values(config.enemies)) {
+    // Night-specific animatronics appear only on their nights and keep their written numbers.
+    if (rule.nights) {
+      rule.enabled = rule.nights.includes(index + 1);
+      continue;
+    }
     rule.startAt *= scale.start;
     rule.attackDelay *= scale.warning;
     if (rule.moveInterval) rule.moveInterval = rule.moveInterval.map(seconds => seconds * scale.move);

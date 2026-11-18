@@ -96,9 +96,12 @@ function atDoor(state, enemy, dt, config) {
       enemy.sprintIn = null;
       state.power = Math.max(0, state.power - rule.knockPower);
     }
+    // A stealth animatronic gives no cues at all: it never counts as "another threat"
+    // and its own retreat is silent.
     const anotherThreat = Object.values(state.enemies).some(other =>
-      other !== enemy && roomOf(other, config) === 'door' && config.enemies[other.id].side === rule.side);
-    notify(state, `${rule.name} blocked at the ${rule.side} door and retreated. ${anotherThreat ? 'Another threat remains; keep this door closed.' : 'Safe to reopen.'}`, anotherThreat ? 'warning' : 'safe');
+      other !== enemy && roomOf(other, config) === 'door' && config.enemies[other.id].side === rule.side
+      && !config.enemies[other.id].stealth);
+    if (!rule.stealth) notify(state, `${rule.name} blocked at the ${rule.side} door and retreated. ${anotherThreat ? 'Another threat remains; keep this door closed.' : 'Safe to reopen.'}`, anotherThreat ? 'warning' : 'safe');
   } else if (enemy.attackIn <= 1e-8 && !state.doors[rule.side]) {
     finish(state, 'loss', enemy.id);
   }
@@ -114,6 +117,10 @@ function moveEnemy(state, enemy, dt, config, random) {
   if (enemy.moveIn > 1e-8) return;
   enemy.position += 1;
   enemy.moveIn = interval(rule, random);
+  if (rule.stealth) {
+    if (roomOf(enemy, config) === 'door') { enemy.attackIn = rule.attackDelay; enemy.blockedFor = 0; }
+    return;
+  }
   if (roomOf(enemy, config) === 'door') {
     enemy.attackIn = rule.attackDelay;
     enemy.blockedFor = 0;

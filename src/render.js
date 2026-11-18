@@ -57,7 +57,8 @@ export function createRenderer(onAssetChange, config = CONFIG, { forcePlaceholde
   let lastUsage = -1;
 
   function renderEnemyMarkers(state) {
-    const here = Object.values(state.enemies).filter(e => roomOf(e, config) === state.camera);
+    // Stealth animatronics never appear on camera.
+    const here = Object.values(state.enemies).filter(e => roomOf(e, config) === state.camera && !config.enemies[e.id].stealth);
     const key = state.camera + here.map(e => `${e.id}:${assets.get(e.id === 'foxy' && e.position === 1 ? ASSETS.foxyRun : ASSETS.characters[e.id])?.ready}:${e.coveStage}`).join('|');
     if (key === markerKey) return;
     markerKey = key;
@@ -106,7 +107,7 @@ export function createRenderer(onAssetChange, config = CONFIG, { forcePlaceholde
     const outageArt = state.outage && assets.get(ASSETS.outage)?.ready;
     show('office-fallback', !art('office-art', outageArt ? ASSETS.outage : ASSETS.office));
     for (const side of ['left', 'right']) {
-      const threats = Object.values(state.enemies).filter(e => roomOf(e, config) === 'door' && config.enemies[e.id].side === side);
+      const threats = Object.values(state.enemies).filter(e => roomOf(e, config) === 'door' && config.enemies[e.id].side === side && !config.enemies[e.id].stealth);
       const closed = state.doors[side] && !state.outage;
       const lit = state.lights[side] && !state.outage && !closed;
       const threat = threats.find(enemy => ASSETS.doorway[enemy.id]) ?? threats[0];
@@ -145,13 +146,13 @@ export function createRenderer(onAssetChange, config = CONFIG, { forcePlaceholde
     els['camera-art'].alt = `${camera.name} security camera`;
     text('feed-code', `CAM ${camera.id}`);
     text('feed-name', camera.name);
-    const here = Object.values(state.enemies).filter(e => roomOf(e, config) === camera.id);
+    const here = Object.values(state.enemies).filter(e => roomOf(e, config) === camera.id && !config.enemies[e.id].stealth);
     text('feed-status', camera.audioOnly ? here.length ? 'METALLIC CLATTER DETECTED / TEXT CUE' : 'KITCHEN CIRCUIT / QUIET' : here.length ? `${here.length} LIVE POSITION${here.length > 1 ? 'S' : ''} DETECTED` : 'NO LIVE THREATS IN THIS ROOM');
     for (const button of cameraButtons) button.setAttribute('aria-pressed', String(button.dataset.camera === camera.id));
     renderEnemyMarkers(state);
   }
 
-  return function render(state, { dev = false, speed = 1, muted = false, progress = { night: 1, stars: 0 } } = {}) {
+  return function render(state, { dev = false, speed = 1, muted = false, progress = { night: 1, stars: 0 }, review = null } = {}) {
     const playing = state.mode === 'playing';
     show('menu', state.mode === 'menu'); show('play', playing); show('result', ['won', 'lost'].includes(state.mode));
     show('menu-button', playing); show('pause-button', playing); show('dev-panel', dev);
@@ -168,7 +169,7 @@ export function createRenderer(onAssetChange, config = CONFIG, { forcePlaceholde
     if (state.mode === 'menu') {
       show('title-fallback', !art('title-art', ASSETS.title));
       // Continue appears once a win has unlocked a later night; stars stay through New Game.
-      show('continue', progress.night > 1);
+      show('continue', progress.night > 1 && !review);
       text('continue', `Continue · Night ${progress.night}`);
       show('stars', progress.stars > 0);
       text('stars', '★'.repeat(progress.stars));
@@ -222,7 +223,7 @@ export function createRenderer(onAssetChange, config = CONFIG, { forcePlaceholde
       text('result-title', won ? '6:00 AM' : 'Caught in the dark.');
       text('result-description', won ? `The morning crew has arrived. ${finalNight ? 'You survived all five nights and earned a star.' : `You survived Night ${night}.`}` : cause === 'outage' ? 'The power failed, and something found you before dawn. Conserve devices to keep the office online.' : `${name} reached the office through the ${config.enemies[cause]?.side} doorway. Close that door and hold it until the threat retreats.`);
       art('loss-art', ASSETS.jumpscares[cause === 'outage' ? 'freddy' : cause], !won);
-      text('retry', !won ? `Retry Night ${night} ↗` : finalNight ? `Play Night ${night} again ↗` : `Start Night ${night + 1} ↗`);
+      text('retry', !won ? `Retry Night ${night} ↗` : finalNight || review ? `Play Night ${night} again ↗` : `Start Night ${night + 1} ↗`);
       text('activity', !won ? 'Night ended. Retry starts a completely fresh shift.' : finalNight ? 'All five nights complete. Replay Night 5 or return to the menu.' : `Night ${night} complete. Night ${night + 1} is saved for Continue.`);
       els.activity.dataset.tone = won ? 'safe' : 'danger';
     } else {

@@ -1,0 +1,887 @@
+{
+  "meta": {
+    "generatedAt": "2026-11-18T21:21:15.501Z",
+    "seconds": 14.184,
+    "runsPerPlayer": 150,
+    "investigationRuns": 90,
+    "simulatedNights": 3000,
+    "reactionFloor": 0.25
+  },
+  "thresholds": {
+    "unwinnable": 0.5,
+    "beyondHumans": 0.15,
+    "expertOnly": 0.1,
+    "culpritLift": 0.3,
+    "spike": 0.4
+  },
+  "players": [
+    {
+      "id": "rookie",
+      "label": "Rookie",
+      "kind": "human",
+      "blurb": "First few nights: slow reactions (~0.85 s), misses 1 warning in 8, rarely checks Pirate Cove."
+    },
+    {
+      "id": "average",
+      "label": "Average player",
+      "kind": "human",
+      "blurb": "Knows the rules: ~0.6 s reactions, misses 1 warning in 16, checks Pirate Cove every ~18 s."
+    },
+    {
+      "id": "veteran",
+      "label": "Veteran",
+      "kind": "human",
+      "blurb": "Top-tier human: ~0.38 s reactions (never under 0.26 s), rarely misses a warning, watches the Cove often."
+    },
+    {
+      "id": "perfect",
+      "label": "Perfect bot",
+      "kind": "bot",
+      "blurb": "Not a human. Sees the true game state, including hidden animatronics, and reacts in 0.05 s."
+    }
+  ],
+  "nights": [
+    {
+      "night": 1,
+      "roster": [
+        "Bonnie",
+        "Chica",
+        "Freddy",
+        "Foxy"
+      ],
+      "results": {
+        "rookie": {
+          "runs": 150,
+          "winRate": 0.9666666666666667,
+          "causes": {
+            "bonnie": 2,
+            "freddy": 3
+          },
+          "meanLossTime": 296.1200000000331,
+          "meanPowerAtWin": 39.192503448260204,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 19.32966666666681,
+            "right": 13.848666666666729
+          },
+          "firstLossSeed": 4216464424,
+          "lossSeeds": {
+            "bonnie": 4216464424,
+            "freddy": 3227526235
+          }
+        },
+        "average": {
+          "runs": 150,
+          "winRate": 1,
+          "causes": {},
+          "meanLossTime": null,
+          "meanPowerAtWin": 38.1509733333187,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 18.891333333333467,
+            "right": 13.64333333333339
+          },
+          "firstLossSeed": null,
+          "lossSeeds": {}
+        },
+        "veteran": {
+          "runs": 150,
+          "winRate": 1,
+          "causes": {},
+          "meanLossTime": null,
+          "meanPowerAtWin": 37.16744666665298,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 17.807666666666773,
+            "right": 12.731000000000048
+          },
+          "firstLossSeed": null,
+          "lossSeeds": {}
+        },
+        "perfect": {
+          "runs": 150,
+          "winRate": 1,
+          "causes": {},
+          "meanLossTime": null,
+          "meanPowerAtWin": 42.592113333313264,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 12.024333333333345,
+            "right": 9.043999999999999
+          },
+          "firstLossSeed": null,
+          "lossSeeds": {}
+        }
+      },
+      "audit": {
+        "spare": 49.599999999999994,
+        "animatronics": [
+          {
+            "id": "bonnie",
+            "name": "Bonnie",
+            "side": "left",
+            "color": "#b79ae8",
+            "startAt": 35,
+            "warning": 7,
+            "cues": [
+              "camera (CAM 1A, 1B, 2A, 2B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.04285714285714286,
+            "minPower": 3.064285714285714,
+            "issues": []
+          },
+          {
+            "id": "chica",
+            "name": "Chica",
+            "side": "right",
+            "color": "#e3c56e",
+            "startAt": 65,
+            "warning": 7,
+            "cues": [
+              "camera (CAM 1A, 1B, 7, 4A, 4B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.030612244897959183,
+            "minPower": 1.986734693877551,
+            "issues": []
+          },
+          {
+            "id": "freddy",
+            "name": "Freddy",
+            "side": "right",
+            "color": "#d8a07b",
+            "startAt": 190,
+            "warning": 5,
+            "cues": [
+              "camera (CAM 1A, 1B, 7, 4A, 4B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.022556390977443608,
+            "minPower": 0.8436090225563909,
+            "issues": []
+          },
+          {
+            "id": "foxy",
+            "name": "Foxy",
+            "side": "left",
+            "color": "#e78674",
+            "startAt": 75,
+            "warning": 6,
+            "cues": [
+              "camera (CAM 1C, 2A)",
+              "sprint warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.0026139334015229006,
+            "minPower": 4.633719740879646,
+            "issues": []
+          }
+        ]
+      },
+      "humanRate": 1,
+      "spike": 0,
+      "status": "fair"
+    },
+    {
+      "night": 2,
+      "roster": [
+        "Bonnie",
+        "Chica",
+        "Freddy",
+        "Foxy"
+      ],
+      "results": {
+        "rookie": {
+          "runs": 150,
+          "winRate": 0.9533333333333334,
+          "causes": {
+            "chica": 2,
+            "freddy": 5
+          },
+          "meanLossTime": 279.6500000000293,
+          "meanPowerAtWin": 35.0840073426461,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 20.72866666666683,
+            "right": 16.3110000000001
+          },
+          "firstLossSeed": 1732568554,
+          "lossSeeds": {
+            "chica": 1732568554,
+            "freddy": 1732715649
+          }
+        },
+        "average": {
+          "runs": 150,
+          "winRate": 1,
+          "causes": {},
+          "meanLossTime": null,
+          "meanPowerAtWin": 34.98768333332248,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 19.778333333333485,
+            "right": 15.69500000000009
+          },
+          "firstLossSeed": null,
+          "lossSeeds": {}
+        },
+        "veteran": {
+          "runs": 150,
+          "winRate": 1,
+          "causes": {},
+          "meanLossTime": null,
+          "meanPowerAtWin": 33.97767666665692,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 18.848666666666784,
+            "right": 14.820666666666744
+          },
+          "firstLossSeed": null,
+          "lossSeeds": {}
+        },
+        "perfect": {
+          "runs": 150,
+          "winRate": 1,
+          "causes": {},
+          "meanLossTime": null,
+          "meanPowerAtWin": 37.96382333332103,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 14.890000000000045,
+            "right": 11.992333333333345
+          },
+          "firstLossSeed": null,
+          "lossSeeds": {}
+        }
+      },
+      "audit": {
+        "spare": 47.07999999999999,
+        "animatronics": [
+          {
+            "id": "bonnie",
+            "name": "Bonnie",
+            "side": "left",
+            "color": "#b79ae8",
+            "startAt": 29.75,
+            "warning": 6.44,
+            "cues": [
+              "camera (CAM 1A, 1B, 2A, 2B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.04728877679697352,
+            "minPower": 3.435766078184111,
+            "issues": []
+          },
+          {
+            "id": "chica",
+            "name": "Chica",
+            "side": "right",
+            "color": "#e3c56e",
+            "startAt": 55.25,
+            "warning": 6.44,
+            "cues": [
+              "camera (CAM 1A, 1B, 7, 4A, 4B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.03384476534296029,
+            "minPower": 2.2691222924187726,
+            "issues": []
+          },
+          {
+            "id": "freddy",
+            "name": "Freddy",
+            "side": "right",
+            "color": "#d8a07b",
+            "startAt": 161.5,
+            "warning": 4.6000000000000005,
+            "cues": [
+              "camera (CAM 1A, 1B, 7, 4A, 4B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.024979184013322234,
+            "minPower": 1.090840965861782,
+            "issues": []
+          },
+          {
+            "id": "foxy",
+            "name": "Foxy",
+            "side": "left",
+            "color": "#e78674",
+            "startAt": 63.75,
+            "warning": 5.5200000000000005,
+            "cues": [
+              "camera (CAM 1C, 2A)",
+              "sprint warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.0029993905964058576,
+            "minPower": 5.526902067232164,
+            "issues": []
+          }
+        ]
+      },
+      "humanRate": 1,
+      "spike": 0,
+      "status": "fair"
+    },
+    {
+      "night": 3,
+      "roster": [
+        "Bonnie",
+        "Chica",
+        "Freddy",
+        "Foxy"
+      ],
+      "results": {
+        "rookie": {
+          "runs": 150,
+          "winRate": 0.8133333333333334,
+          "causes": {
+            "chica": 5,
+            "freddy": 11,
+            "bonnie": 12
+          },
+          "meanLossTime": 246.68392857145045,
+          "meanPowerAtWin": 29.69334754098534,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 23.17466666666685,
+            "right": 20.240000000000144
+          },
+          "firstLossSeed": 2599112054,
+          "lossSeeds": {
+            "chica": 2599112054,
+            "freddy": 2800443482,
+            "bonnie": 561326767
+          }
+        },
+        "average": {
+          "runs": 150,
+          "winRate": 1,
+          "causes": {},
+          "meanLossTime": null,
+          "meanPowerAtWin": 29.89079333333557,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 23.55166666666685,
+            "right": 21.81733333333351
+          },
+          "firstLossSeed": null,
+          "lossSeeds": {}
+        },
+        "veteran": {
+          "runs": 150,
+          "winRate": 1,
+          "causes": {},
+          "meanLossTime": null,
+          "meanPowerAtWin": 29.32799333333606,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 22.241666666666855,
+            "right": 20.95366666666683
+          },
+          "firstLossSeed": null,
+          "lossSeeds": {}
+        },
+        "perfect": {
+          "runs": 150,
+          "winRate": 1,
+          "causes": {},
+          "meanLossTime": null,
+          "meanPowerAtWin": 33.8517600000009,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 15.864666666666738,
+            "right": 14.918000000000044
+          },
+          "firstLossSeed": null,
+          "lossSeeds": {}
+        }
+      },
+      "audit": {
+        "spare": 44.55999999999999,
+        "animatronics": [
+          {
+            "id": "bonnie",
+            "name": "Bonnie",
+            "side": "left",
+            "color": "#b79ae8",
+            "startAt": 24.5,
+            "warning": 5.95,
+            "cues": [
+              "camera (CAM 1A, 1B, 2A, 2B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.05267778753292361,
+            "minPower": 3.888147497805092,
+            "issues": []
+          },
+          {
+            "id": "chica",
+            "name": "Chica",
+            "side": "right",
+            "color": "#e3c56e",
+            "startAt": 45.5,
+            "warning": 5.95,
+            "cues": [
+              "camera (CAM 1A, 1B, 7, 4A, 4B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.03780718336483931,
+            "minPower": 2.615879017013232,
+            "issues": []
+          },
+          {
+            "id": "freddy",
+            "name": "Freddy",
+            "side": "right",
+            "color": "#d8a07b",
+            "startAt": 133,
+            "warning": 4.25,
+            "cues": [
+              "camera (CAM 1A, 1B, 7, 4A, 4B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.027972027972027972,
+            "minPower": 1.396923076923077,
+            "issues": []
+          },
+          {
+            "id": "foxy",
+            "name": "Foxy",
+            "side": "left",
+            "color": "#e78674",
+            "startAt": 52.5,
+            "warning": 5.1,
+            "cues": [
+              "camera (CAM 1C, 2A)",
+              "sprint warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.003384313086312435,
+            "minPower": 6.473006424535479,
+            "issues": []
+          }
+        ]
+      },
+      "humanRate": 1,
+      "spike": 0,
+      "status": "fair"
+    },
+    {
+      "night": 4,
+      "roster": [
+        "Bonnie",
+        "Chica",
+        "Freddy",
+        "Foxy"
+      ],
+      "results": {
+        "rookie": {
+          "runs": 150,
+          "winRate": 0.7533333333333333,
+          "causes": {
+            "freddy": 12,
+            "chica": 10,
+            "bonnie": 15
+          },
+          "meanLossTime": 221.69054054055803,
+          "meanPowerAtWin": 25.295377433641644,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 25.33266666666689,
+            "right": 21.077000000000165
+          },
+          "firstLossSeed": 562236789,
+          "lossSeeds": {
+            "freddy": 562236789,
+            "chica": 495126313,
+            "bonnie": 139323077
+          }
+        },
+        "average": {
+          "runs": 150,
+          "winRate": 1,
+          "causes": {},
+          "meanLossTime": null,
+          "meanPowerAtWin": 25.517423333345626,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 27.21866666666693,
+            "right": 23.413000000000185
+          },
+          "firstLossSeed": null,
+          "lossSeeds": {}
+        },
+        "veteran": {
+          "runs": 150,
+          "winRate": 1,
+          "causes": {},
+          "meanLossTime": null,
+          "meanPowerAtWin": 25.75701000001091,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 25.79433333333359,
+            "right": 22.086333333333503
+          },
+          "firstLossSeed": null,
+          "lossSeeds": {}
+        },
+        "perfect": {
+          "runs": 150,
+          "winRate": 1,
+          "causes": {},
+          "meanLossTime": null,
+          "meanPowerAtWin": 29.59604333334738,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 18.069333333333464,
+            "right": 16.6450000000001
+          },
+          "firstLossSeed": null,
+          "lossSeeds": {}
+        }
+      },
+      "audit": {
+        "spare": 42.04,
+        "animatronics": [
+          {
+            "id": "bonnie",
+            "name": "Bonnie",
+            "side": "left",
+            "color": "#b79ae8",
+            "startAt": 19.25,
+            "warning": 5.25,
+            "cues": [
+              "camera (CAM 1A, 1B, 2A, 2B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.05830903790087463,
+            "minPower": 4.371137026239067,
+            "issues": []
+          },
+          {
+            "id": "chica",
+            "name": "Chica",
+            "side": "right",
+            "color": "#e3c56e",
+            "startAt": 35.75,
+            "warning": 5.25,
+            "cues": [
+              "camera (CAM 1A, 1B, 7, 4A, 4B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.04189359028068706,
+            "minPower": 2.988479262672811,
+            "issues": []
+          },
+          {
+            "id": "freddy",
+            "name": "Freddy",
+            "side": "right",
+            "color": "#d8a07b",
+            "startAt": 104.50000000000001,
+            "warning": 3.75,
+            "cues": [
+              "camera (CAM 1A, 1B, 7, 4A, 4B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.031007751937984496,
+            "minPower": 1.7429457364341086,
+            "issues": []
+          },
+          {
+            "id": "foxy",
+            "name": "Foxy",
+            "side": "left",
+            "color": "#e78674",
+            "startAt": 41.25,
+            "warning": 4.5,
+            "cues": [
+              "camera (CAM 1C, 2A)",
+              "sprint warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.0037754004641421864,
+            "minPower": 7.485203345219903,
+            "issues": []
+          }
+        ]
+      },
+      "humanRate": 1,
+      "spike": 0,
+      "status": "fair"
+    },
+    {
+      "night": 5,
+      "roster": [
+        "Bonnie",
+        "Chica",
+        "Freddy",
+        "Foxy"
+      ],
+      "results": {
+        "rookie": {
+          "runs": 150,
+          "winRate": 0.58,
+          "causes": {
+            "bonnie": 31,
+            "freddy": 23,
+            "chica": 9
+          },
+          "meanLossTime": 218.73809523811326,
+          "meanPowerAtWin": 20.02652643679192,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 25.306666666666857,
+            "right": 23.294666666666846
+          },
+          "firstLossSeed": 1197124411,
+          "lossSeeds": {
+            "bonnie": 1197124411,
+            "freddy": 1213902030,
+            "chica": 3636641316
+          }
+        },
+        "average": {
+          "runs": 150,
+          "winRate": 0.9133333333333333,
+          "causes": {
+            "freddy": 10,
+            "bonnie": 2,
+            "chica": 1
+          },
+          "meanLossTime": 249.31923076925324,
+          "meanPowerAtWin": 20.452013138695303,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 28.74600000000029,
+            "right": 28.53133333333361
+          },
+          "firstLossSeed": 3942757331,
+          "lossSeeds": {
+            "freddy": 3942757331,
+            "bonnie": 2181651789,
+            "chica": 1639302383
+          }
+        },
+        "veteran": {
+          "runs": 150,
+          "winRate": 1,
+          "causes": {},
+          "meanLossTime": null,
+          "meanPowerAtWin": 20.706553333341063,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 28.93866666666693,
+            "right": 28.49266666666695
+          },
+          "firstLossSeed": null,
+          "lossSeeds": {}
+        },
+        "perfect": {
+          "runs": 150,
+          "winRate": 1,
+          "causes": {},
+          "meanLossTime": null,
+          "meanPowerAtWin": 25.23680666667906,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 21.00000000000012,
+            "right": 19.42266666666679
+          },
+          "firstLossSeed": null,
+          "lossSeeds": {}
+        }
+      },
+      "audit": {
+        "spare": 39.519999999999996,
+        "animatronics": [
+          {
+            "id": "bonnie",
+            "name": "Bonnie",
+            "side": "left",
+            "color": "#b79ae8",
+            "startAt": 15.75,
+            "warning": 4.62,
+            "cues": [
+              "camera (CAM 1A, 1B, 2A, 2B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.06435006435006435,
+            "minPower": 4.873552123552124,
+            "issues": []
+          },
+          {
+            "id": "chica",
+            "name": "Chica",
+            "side": "right",
+            "color": "#e3c56e",
+            "startAt": 29.25,
+            "warning": 4.62,
+            "cues": [
+              "camera (CAM 1A, 1B, 7, 4A, 4B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.0462820117247763,
+            "minPower": 3.3677105831533476,
+            "issues": []
+          },
+          {
+            "id": "freddy",
+            "name": "Freddy",
+            "side": "right",
+            "color": "#d8a07b",
+            "startAt": 85.5,
+            "warning": 3.3000000000000003,
+            "cues": [
+              "camera (CAM 1A, 1B, 7, 4A, 4B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.03426613363792119,
+            "minPower": 2.0693318103940608,
+            "issues": []
+          },
+          {
+            "id": "foxy",
+            "name": "Foxy",
+            "side": "left",
+            "color": "#e78674",
+            "startAt": 33.75,
+            "warning": 3.9600000000000004,
+            "cues": [
+              "camera (CAM 1C, 2A)",
+              "sprint warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.004168433720091489,
+            "minPower": 8.458898337338656,
+            "issues": []
+          }
+        ]
+      },
+      "humanRate": 0.9566666666666667,
+      "spike": 0,
+      "status": "fair"
+    }
+  ],
+  "tickets": [],
+  "log": [
+    {
+      "text": "Phase 1 · Survey",
+      "tone": "phase",
+      "indent": 0
+    },
+    {
+      "text": "Playing every night as 4 kinds of player, 150 times each.",
+      "tone": "normal",
+      "indent": 0
+    },
+    {
+      "text": "Night 1 (Bonnie, Chica, Freddy, Foxy): Rookie 97% · Average player 100% · Veteran 100% · Perfect bot 100%",
+      "tone": "normal",
+      "indent": 1
+    },
+    {
+      "text": "Night 2 (Bonnie, Chica, Freddy, Foxy): Rookie 95% · Average player 100% · Veteran 100% · Perfect bot 100%",
+      "tone": "normal",
+      "indent": 1
+    },
+    {
+      "text": "Night 3 (Bonnie, Chica, Freddy, Foxy): Rookie 81% · Average player 100% · Veteran 100% · Perfect bot 100%",
+      "tone": "normal",
+      "indent": 1
+    },
+    {
+      "text": "Night 4 (Bonnie, Chica, Freddy, Foxy): Rookie 75% · Average player 100% · Veteran 100% · Perfect bot 100%",
+      "tone": "normal",
+      "indent": 1
+    },
+    {
+      "text": "Night 5 (Bonnie, Chica, Freddy, Foxy): Rookie 58% · Average player 91% · Veteran 100% · Perfect bot 100%",
+      "tone": "normal",
+      "indent": 1
+    },
+    {
+      "text": "Phase 2 · Detect",
+      "tone": "phase",
+      "indent": 0
+    },
+    {
+      "text": "Night 1 looks fair: Average 100%, Veteran 100%, Rookie 97%.",
+      "tone": "safe",
+      "indent": 1
+    },
+    {
+      "text": "Night 2 looks fair: Average 100%, Veteran 100%, Rookie 95%.",
+      "tone": "safe",
+      "indent": 1
+    },
+    {
+      "text": "Night 3 looks fair: Average 100%, Veteran 100%, Rookie 81%.",
+      "tone": "safe",
+      "indent": 1
+    },
+    {
+      "text": "Night 4 looks fair: Average 100%, Veteran 100%, Rookie 75%.",
+      "tone": "safe",
+      "indent": 1
+    },
+    {
+      "text": "Night 5 looks fair: Average 91%, Veteran 100%, Rookie 58%.",
+      "tone": "safe",
+      "indent": 1
+    },
+    {
+      "text": "No suspicious nights. Nothing to investigate.",
+      "tone": "safe",
+      "indent": 1
+    },
+    {
+      "text": "Phase 4 · Call for human review",
+      "tone": "phase",
+      "indent": 0
+    },
+    {
+      "text": "Nothing needs a human. Every night was beatable by human-like players.",
+      "tone": "safe",
+      "indent": 1
+    }
+  ]
+}

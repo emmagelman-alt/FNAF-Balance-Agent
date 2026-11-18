@@ -135,7 +135,8 @@ export function createAudio(config = CONFIG, { silent = false } = {}) {
   const snapshot = state => ({
     mode: state.mode, paused: state.paused, hidden: state.hidden, outage: state.outage,
     monitor: state.monitor, camera: state.camera, doors: { ...state.doors }, lights: { ...state.lights },
-    rooms: Object.fromEntries(Object.values(state.enemies).map(enemy => [enemy.id, roomOf(enemy, config)])),
+    // Stealth animatronics make no sound.
+    rooms: Object.fromEntries(Object.values(state.enemies).filter(enemy => !config.enemies[enemy.id].stealth).map(enemy => [enemy.id, roomOf(enemy, config)])),
     coveStage: state.enemies.foxy?.coveStage ?? 0,
   });
 

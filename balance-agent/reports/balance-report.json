@@ -1,0 +1,1539 @@
+{
+  "meta": {
+    "generatedAt": "2026-11-18T21:23:15.697Z",
+    "seconds": 17.207,
+    "runsPerPlayer": 150,
+    "investigationRuns": 90,
+    "simulatedNights": 5160,
+    "reactionFloor": 0.25
+  },
+  "thresholds": {
+    "unwinnable": 0.5,
+    "beyondHumans": 0.15,
+    "expertOnly": 0.1,
+    "culpritLift": 0.3,
+    "spike": 0.4
+  },
+  "players": [
+    {
+      "id": "rookie",
+      "label": "Rookie",
+      "kind": "human",
+      "blurb": "First few nights: slow reactions (~0.85 s), misses 1 warning in 8, rarely checks Pirate Cove."
+    },
+    {
+      "id": "average",
+      "label": "Average player",
+      "kind": "human",
+      "blurb": "Knows the rules: ~0.6 s reactions, misses 1 warning in 16, checks Pirate Cove every ~18 s."
+    },
+    {
+      "id": "veteran",
+      "label": "Veteran",
+      "kind": "human",
+      "blurb": "Top-tier human: ~0.38 s reactions (never under 0.26 s), rarely misses a warning, watches the Cove often."
+    },
+    {
+      "id": "perfect",
+      "label": "Perfect bot",
+      "kind": "bot",
+      "blurb": "Not a human. Sees the true game state, including hidden animatronics, and reacts in 0.05 s."
+    }
+  ],
+  "nights": [
+    {
+      "night": 1,
+      "roster": [
+        "Bonnie",
+        "Chica",
+        "Freddy",
+        "Foxy"
+      ],
+      "results": {
+        "rookie": {
+          "runs": 150,
+          "winRate": 0.9666666666666667,
+          "causes": {
+            "bonnie": 2,
+            "freddy": 3
+          },
+          "meanLossTime": 296.1200000000331,
+          "meanPowerAtWin": 39.192503448260204,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 19.32966666666681,
+            "right": 13.848666666666729
+          },
+          "firstLossSeed": 4216464424,
+          "lossSeeds": {
+            "bonnie": 4216464424,
+            "freddy": 3227526235
+          }
+        },
+        "average": {
+          "runs": 150,
+          "winRate": 1,
+          "causes": {},
+          "meanLossTime": null,
+          "meanPowerAtWin": 38.1509733333187,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 18.891333333333467,
+            "right": 13.64333333333339
+          },
+          "firstLossSeed": null,
+          "lossSeeds": {}
+        },
+        "veteran": {
+          "runs": 150,
+          "winRate": 1,
+          "causes": {},
+          "meanLossTime": null,
+          "meanPowerAtWin": 37.16744666665298,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 17.807666666666773,
+            "right": 12.731000000000048
+          },
+          "firstLossSeed": null,
+          "lossSeeds": {}
+        },
+        "perfect": {
+          "runs": 150,
+          "winRate": 1,
+          "causes": {},
+          "meanLossTime": null,
+          "meanPowerAtWin": 42.592113333313264,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 12.024333333333345,
+            "right": 9.043999999999999
+          },
+          "firstLossSeed": null,
+          "lossSeeds": {}
+        }
+      },
+      "audit": {
+        "spare": 49.599999999999994,
+        "animatronics": [
+          {
+            "id": "bonnie",
+            "name": "Bonnie",
+            "side": "left",
+            "color": "#b79ae8",
+            "startAt": 35,
+            "warning": 7,
+            "cues": [
+              "camera (CAM 1A, 1B, 2A, 2B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.04285714285714286,
+            "minPower": 3.064285714285714,
+            "issues": []
+          },
+          {
+            "id": "chica",
+            "name": "Chica",
+            "side": "right",
+            "color": "#e3c56e",
+            "startAt": 65,
+            "warning": 7,
+            "cues": [
+              "camera (CAM 1A, 1B, 7, 4A, 4B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.030612244897959183,
+            "minPower": 1.986734693877551,
+            "issues": []
+          },
+          {
+            "id": "freddy",
+            "name": "Freddy",
+            "side": "right",
+            "color": "#d8a07b",
+            "startAt": 190,
+            "warning": 5,
+            "cues": [
+              "camera (CAM 1A, 1B, 7, 4A, 4B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.022556390977443608,
+            "minPower": 0.8436090225563909,
+            "issues": []
+          },
+          {
+            "id": "foxy",
+            "name": "Foxy",
+            "side": "left",
+            "color": "#e78674",
+            "startAt": 75,
+            "warning": 6,
+            "cues": [
+              "camera (CAM 1C, 2A)",
+              "sprint warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.0026139334015229006,
+            "minPower": 4.633719740879646,
+            "issues": []
+          }
+        ]
+      },
+      "humanRate": 1,
+      "spike": 0,
+      "status": "fair"
+    },
+    {
+      "night": 2,
+      "roster": [
+        "Bonnie",
+        "Chica",
+        "Freddy",
+        "Foxy",
+        "Sprocket"
+      ],
+      "results": {
+        "rookie": {
+          "runs": 150,
+          "winRate": 0,
+          "causes": {
+            "sprocket": 150
+          },
+          "meanLossTime": 45.19999999999961,
+          "meanPowerAtWin": null,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 0,
+            "right": 0
+          },
+          "firstLossSeed": 1600215816,
+          "lossSeeds": {
+            "sprocket": 1600215816
+          }
+        },
+        "average": {
+          "runs": 150,
+          "winRate": 0,
+          "causes": {
+            "sprocket": 150
+          },
+          "meanLossTime": 45.19999999999961,
+          "meanPowerAtWin": null,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 0,
+            "right": 0
+          },
+          "firstLossSeed": 304079134,
+          "lossSeeds": {
+            "sprocket": 304079134
+          }
+        },
+        "veteran": {
+          "runs": 150,
+          "winRate": 0,
+          "causes": {
+            "sprocket": 150
+          },
+          "meanLossTime": 45.19999999999961,
+          "meanPowerAtWin": null,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 0,
+            "right": 0
+          },
+          "firstLossSeed": 3847279474,
+          "lossSeeds": {
+            "sprocket": 3847279474
+          }
+        },
+        "perfect": {
+          "runs": 150,
+          "winRate": 1,
+          "causes": {},
+          "meanLossTime": null,
+          "meanPowerAtWin": 25.926156666658912,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 69.63266666666487,
+            "right": 11.976000000000013
+          },
+          "firstLossSeed": null,
+          "lossSeeds": {}
+        }
+      },
+      "audit": {
+        "spare": 47.07999999999999,
+        "animatronics": [
+          {
+            "id": "bonnie",
+            "name": "Bonnie",
+            "side": "left",
+            "color": "#b79ae8",
+            "startAt": 29.75,
+            "warning": 6.44,
+            "cues": [
+              "camera (CAM 1A, 1B, 2A, 2B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.04728877679697352,
+            "minPower": 3.435766078184111,
+            "issues": []
+          },
+          {
+            "id": "chica",
+            "name": "Chica",
+            "side": "right",
+            "color": "#e3c56e",
+            "startAt": 55.25,
+            "warning": 6.44,
+            "cues": [
+              "camera (CAM 1A, 1B, 7, 4A, 4B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.03384476534296029,
+            "minPower": 2.2691222924187726,
+            "issues": []
+          },
+          {
+            "id": "freddy",
+            "name": "Freddy",
+            "side": "right",
+            "color": "#d8a07b",
+            "startAt": 161.5,
+            "warning": 4.6000000000000005,
+            "cues": [
+              "camera (CAM 1A, 1B, 7, 4A, 4B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.024979184013322234,
+            "minPower": 1.090840965861782,
+            "issues": []
+          },
+          {
+            "id": "foxy",
+            "name": "Foxy",
+            "side": "left",
+            "color": "#e78674",
+            "startAt": 63.75,
+            "warning": 5.5200000000000005,
+            "cues": [
+              "camera (CAM 1C, 2A)",
+              "sprint warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.0029993905964058576,
+            "minPower": 5.526902067232164,
+            "issues": []
+          },
+          {
+            "id": "sprocket",
+            "name": "Sprocket",
+            "side": "left",
+            "color": "#7fd1c7",
+            "startAt": 45,
+            "warning": 0.2,
+            "cues": [
+              "camera (CAM 5)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.19607843137254904,
+            "minPower": 13.588235294117649,
+            "issues": [
+              {
+                "id": "reaction-window",
+                "severity": "high",
+                "text": "Attacks 0.20 s after its doorway warning. Even elite players need at least 0.25 s to see a cue and press a key."
+              }
+            ]
+          }
+        ]
+      },
+      "humanRate": 0,
+      "spike": 1,
+      "status": "beyond-humans",
+      "removal": [
+        {
+          "id": "bonnie",
+          "name": "Bonnie",
+          "winRate": 0,
+          "lift": 0
+        },
+        {
+          "id": "chica",
+          "name": "Chica",
+          "winRate": 0,
+          "lift": 0
+        },
+        {
+          "id": "freddy",
+          "name": "Freddy",
+          "winRate": 0,
+          "lift": 0
+        },
+        {
+          "id": "foxy",
+          "name": "Foxy",
+          "winRate": 0,
+          "lift": 0
+        },
+        {
+          "id": "sprocket",
+          "name": "Sprocket",
+          "winRate": 1,
+          "lift": 1
+        }
+      ]
+    },
+    {
+      "night": 3,
+      "roster": [
+        "Bonnie",
+        "Chica",
+        "Freddy",
+        "Foxy",
+        "Brassbones"
+      ],
+      "results": {
+        "rookie": {
+          "runs": 150,
+          "winRate": 0,
+          "causes": {
+            "outage": 139,
+            "brassbones": 8,
+            "bonnie": 3
+          },
+          "meanLossTime": 294.40333333336673,
+          "meanPowerAtWin": null,
+          "meanOutageAt": 288.8248201439163,
+          "outageRate": 0.9266666666666666,
+          "meanDoorSeconds": {
+            "left": 20.13866666666683,
+            "right": 207.89800000001418
+          },
+          "firstLossSeed": 2683000149,
+          "lossSeeds": {
+            "outage": 2683000149,
+            "brassbones": 2817221101,
+            "bonnie": 594190457
+          }
+        },
+        "average": {
+          "runs": 150,
+          "winRate": 0,
+          "causes": {
+            "outage": 150
+          },
+          "meanLossTime": 308.1486666667024,
+          "meanPowerAtWin": null,
+          "meanOutageAt": 290.14866666669826,
+          "outageRate": 1,
+          "meanDoorSeconds": {
+            "left": 19.027333333333477,
+            "right": 219.31466666668217
+          },
+          "firstLossSeed": 1037931713,
+          "lossSeeds": {
+            "outage": 1037931713
+          }
+        },
+        "veteran": {
+          "runs": 150,
+          "winRate": 0,
+          "causes": {
+            "outage": 150
+          },
+          "meanLossTime": 305.49666666670186,
+          "meanPowerAtWin": null,
+          "meanOutageAt": 287.49666666669776,
+          "outageRate": 1,
+          "meanDoorSeconds": {
+            "left": 17.954333333333445,
+            "right": 217.96033333334873
+          },
+          "firstLossSeed": 1841175393,
+          "lossSeeds": {
+            "outage": 1841175393
+          }
+        },
+        "perfect": {
+          "runs": 150,
+          "winRate": 0,
+          "causes": {
+            "outage": 150
+          },
+          "meanLossTime": 331.6226666667077,
+          "meanPowerAtWin": null,
+          "meanOutageAt": 313.62266666670365,
+          "outageRate": 1,
+          "meanDoorSeconds": {
+            "left": 14.55933333333338,
+            "right": 205.84566666667928
+          },
+          "firstLossSeed": 698570591,
+          "lossSeeds": {
+            "outage": 698570591
+          }
+        }
+      },
+      "audit": {
+        "spare": 44.55999999999999,
+        "animatronics": [
+          {
+            "id": "bonnie",
+            "name": "Bonnie",
+            "side": "left",
+            "color": "#b79ae8",
+            "startAt": 24.5,
+            "warning": 5.95,
+            "cues": [
+              "camera (CAM 1A, 1B, 2A, 2B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.05267778753292361,
+            "minPower": 3.888147497805092,
+            "issues": []
+          },
+          {
+            "id": "chica",
+            "name": "Chica",
+            "side": "right",
+            "color": "#e3c56e",
+            "startAt": 45.5,
+            "warning": 5.95,
+            "cues": [
+              "camera (CAM 1A, 1B, 7, 4A, 4B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.03780718336483931,
+            "minPower": 2.615879017013232,
+            "issues": []
+          },
+          {
+            "id": "freddy",
+            "name": "Freddy",
+            "side": "right",
+            "color": "#d8a07b",
+            "startAt": 133,
+            "warning": 4.25,
+            "cues": [
+              "camera (CAM 1A, 1B, 7, 4A, 4B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.027972027972027972,
+            "minPower": 1.396923076923077,
+            "issues": []
+          },
+          {
+            "id": "foxy",
+            "name": "Foxy",
+            "side": "left",
+            "color": "#e78674",
+            "startAt": 52.5,
+            "warning": 5.1,
+            "cues": [
+              "camera (CAM 1C, 2A)",
+              "sprint warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.003384313086312435,
+            "minPower": 6.473006424535479,
+            "issues": []
+          },
+          {
+            "id": "brassbones",
+            "name": "Brassbones",
+            "side": "right",
+            "color": "#d4b14a",
+            "startAt": 40,
+            "warning": 6,
+            "cues": [
+              "camera (CAM 3, 4B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.75,
+            "minPower": 52.800000000000004,
+            "issues": [
+              {
+                "id": "power-impossible",
+                "severity": "critical",
+                "text": "Needs the right door shut at least 75% of the time it is active (53 power), but the night only leaves 45 power for every device combined."
+              }
+            ]
+          }
+        ]
+      },
+      "humanRate": 0,
+      "spike": 0,
+      "status": "unwinnable",
+      "removal": [
+        {
+          "id": "bonnie",
+          "name": "Bonnie",
+          "winRate": 0,
+          "lift": 0
+        },
+        {
+          "id": "chica",
+          "name": "Chica",
+          "winRate": 0,
+          "lift": 0
+        },
+        {
+          "id": "freddy",
+          "name": "Freddy",
+          "winRate": 0,
+          "lift": 0
+        },
+        {
+          "id": "foxy",
+          "name": "Foxy",
+          "winRate": 0,
+          "lift": 0
+        },
+        {
+          "id": "brassbones",
+          "name": "Brassbones",
+          "winRate": 1,
+          "lift": 1
+        }
+      ]
+    },
+    {
+      "night": 4,
+      "roster": [
+        "Bonnie",
+        "Chica",
+        "Freddy",
+        "Foxy"
+      ],
+      "results": {
+        "rookie": {
+          "runs": 150,
+          "winRate": 0.7533333333333333,
+          "causes": {
+            "freddy": 12,
+            "chica": 10,
+            "bonnie": 15
+          },
+          "meanLossTime": 221.69054054055803,
+          "meanPowerAtWin": 25.295377433641644,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 25.33266666666689,
+            "right": 21.077000000000165
+          },
+          "firstLossSeed": 562236789,
+          "lossSeeds": {
+            "freddy": 562236789,
+            "chica": 495126313,
+            "bonnie": 139323077
+          }
+        },
+        "average": {
+          "runs": 150,
+          "winRate": 1,
+          "causes": {},
+          "meanLossTime": null,
+          "meanPowerAtWin": 25.517423333345626,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 27.21866666666693,
+            "right": 23.413000000000185
+          },
+          "firstLossSeed": null,
+          "lossSeeds": {}
+        },
+        "veteran": {
+          "runs": 150,
+          "winRate": 1,
+          "causes": {},
+          "meanLossTime": null,
+          "meanPowerAtWin": 25.75701000001091,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 25.79433333333359,
+            "right": 22.086333333333503
+          },
+          "firstLossSeed": null,
+          "lossSeeds": {}
+        },
+        "perfect": {
+          "runs": 150,
+          "winRate": 1,
+          "causes": {},
+          "meanLossTime": null,
+          "meanPowerAtWin": 29.59604333334738,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 18.069333333333464,
+            "right": 16.6450000000001
+          },
+          "firstLossSeed": null,
+          "lossSeeds": {}
+        }
+      },
+      "audit": {
+        "spare": 42.04,
+        "animatronics": [
+          {
+            "id": "bonnie",
+            "name": "Bonnie",
+            "side": "left",
+            "color": "#b79ae8",
+            "startAt": 19.25,
+            "warning": 5.25,
+            "cues": [
+              "camera (CAM 1A, 1B, 2A, 2B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.05830903790087463,
+            "minPower": 4.371137026239067,
+            "issues": []
+          },
+          {
+            "id": "chica",
+            "name": "Chica",
+            "side": "right",
+            "color": "#e3c56e",
+            "startAt": 35.75,
+            "warning": 5.25,
+            "cues": [
+              "camera (CAM 1A, 1B, 7, 4A, 4B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.04189359028068706,
+            "minPower": 2.988479262672811,
+            "issues": []
+          },
+          {
+            "id": "freddy",
+            "name": "Freddy",
+            "side": "right",
+            "color": "#d8a07b",
+            "startAt": 104.50000000000001,
+            "warning": 3.75,
+            "cues": [
+              "camera (CAM 1A, 1B, 7, 4A, 4B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.031007751937984496,
+            "minPower": 1.7429457364341086,
+            "issues": []
+          },
+          {
+            "id": "foxy",
+            "name": "Foxy",
+            "side": "left",
+            "color": "#e78674",
+            "startAt": 41.25,
+            "warning": 4.5,
+            "cues": [
+              "camera (CAM 1C, 2A)",
+              "sprint warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.0037754004641421864,
+            "minPower": 7.485203345219903,
+            "issues": []
+          }
+        ]
+      },
+      "humanRate": 1,
+      "spike": 0,
+      "status": "fair"
+    },
+    {
+      "night": 5,
+      "roster": [
+        "Bonnie",
+        "Chica",
+        "Freddy",
+        "Foxy",
+        "Hush"
+      ],
+      "results": {
+        "rookie": {
+          "runs": 150,
+          "winRate": 0,
+          "causes": {
+            "hush": 144,
+            "bonnie": 6
+          },
+          "meanLossTime": 88.7796666666638,
+          "meanPowerAtWin": null,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 4.044333333333326,
+            "right": 0.026333333333333292
+          },
+          "firstLossSeed": 1264234887,
+          "lossSeeds": {
+            "hush": 1264234887,
+            "bonnie": 1230679649
+          }
+        },
+        "average": {
+          "runs": 150,
+          "winRate": 0,
+          "causes": {
+            "hush": 150
+          },
+          "meanLossTime": 90.73433333333035,
+          "meanPowerAtWin": null,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 3.993999999999993,
+            "right": 0.08166666666666653
+          },
+          "firstLossSeed": 39841411,
+          "lossSeeds": {
+            "hush": 39841411
+          }
+        },
+        "veteran": {
+          "runs": 150,
+          "winRate": 0,
+          "causes": {
+            "hush": 150
+          },
+          "meanLossTime": 92.45866666666402,
+          "meanPowerAtWin": null,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 3.9363333333333297,
+            "right": 0.24166666666666753
+          },
+          "firstLossSeed": 3659156003,
+          "lossSeeds": {
+            "hush": 3659156003
+          }
+        },
+        "perfect": {
+          "runs": 150,
+          "winRate": 1,
+          "causes": {},
+          "meanLossTime": null,
+          "meanPowerAtWin": 21.370673333343316,
+          "meanOutageAt": null,
+          "outageRate": 0,
+          "meanDoorSeconds": {
+            "left": 38.5373333333333,
+            "right": 19.46233333333346
+          },
+          "firstLossSeed": null,
+          "lossSeeds": {}
+        }
+      },
+      "audit": {
+        "spare": 39.519999999999996,
+        "animatronics": [
+          {
+            "id": "bonnie",
+            "name": "Bonnie",
+            "side": "left",
+            "color": "#b79ae8",
+            "startAt": 15.75,
+            "warning": 4.62,
+            "cues": [
+              "camera (CAM 1A, 1B, 2A, 2B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.06435006435006435,
+            "minPower": 4.873552123552124,
+            "issues": []
+          },
+          {
+            "id": "chica",
+            "name": "Chica",
+            "side": "right",
+            "color": "#e3c56e",
+            "startAt": 29.25,
+            "warning": 4.62,
+            "cues": [
+              "camera (CAM 1A, 1B, 7, 4A, 4B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.0462820117247763,
+            "minPower": 3.3677105831533476,
+            "issues": []
+          },
+          {
+            "id": "freddy",
+            "name": "Freddy",
+            "side": "right",
+            "color": "#d8a07b",
+            "startAt": 85.5,
+            "warning": 3.3000000000000003,
+            "cues": [
+              "camera (CAM 1A, 1B, 7, 4A, 4B)",
+              "doorway warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.03426613363792119,
+            "minPower": 2.0693318103940608,
+            "issues": []
+          },
+          {
+            "id": "foxy",
+            "name": "Foxy",
+            "side": "left",
+            "color": "#e78674",
+            "startAt": 33.75,
+            "warning": 3.9600000000000004,
+            "cues": [
+              "camera (CAM 1C, 2A)",
+              "sprint warning",
+              "footsteps"
+            ],
+            "doorDuty": 0.004168433720091489,
+            "minPower": 8.458898337338656,
+            "issues": []
+          },
+          {
+            "id": "hush",
+            "name": "Hush",
+            "side": "left",
+            "color": "#9aa3ad",
+            "startAt": 70,
+            "warning": 3,
+            "cues": [],
+            "doorDuty": 0.075,
+            "minPower": 4.785,
+            "issues": [
+              {
+                "id": "no-tells",
+                "severity": "high",
+                "text": "Gives no cue at all: never on camera, no doorway warning, no sound. A player cannot know when to close the door."
+              }
+            ]
+          }
+        ]
+      },
+      "humanRate": 0,
+      "spike": 1,
+      "status": "beyond-humans",
+      "removal": [
+        {
+          "id": "bonnie",
+          "name": "Bonnie",
+          "winRate": 0,
+          "lift": 0
+        },
+        {
+          "id": "chica",
+          "name": "Chica",
+          "winRate": 0,
+          "lift": 0
+        },
+        {
+          "id": "freddy",
+          "name": "Freddy",
+          "winRate": 0,
+          "lift": 0
+        },
+        {
+          "id": "foxy",
+          "name": "Foxy",
+          "winRate": 0,
+          "lift": 0
+        },
+        {
+          "id": "hush",
+          "name": "Hush",
+          "winRate": 1,
+          "lift": 1
+        }
+      ]
+    }
+  ],
+  "tickets": [
+    {
+      "id": "night-2-sprocket",
+      "night": 2,
+      "animatronic": {
+        "id": "sprocket",
+        "name": "Sprocket",
+        "side": "left",
+        "color": "#7fd1c7"
+      },
+      "severity": "high",
+      "category": "reaction-window",
+      "reviewRequired": true,
+      "confidence": "high",
+      "title": "Sprocket attacks faster than a person can react",
+      "summary": "Sprocket's doorway warning lasts 0.20 s before it attacks, under the 0.25 s human floor. Veterans won 0% of the night; the perfect bot, reacting within one 0.05 s step, won 100%.",
+      "evidence": [
+        "Survey (150 nights per player): Rookie 0%, Average player 0%, Veteran 0%, Perfect bot 100%.",
+        "Taking Sprocket out raises the Veteran win rate from 0% to 100% (+100 pts).",
+        "Sprocket alone: Veteran 0%, perfect bot 100%.",
+        "Keeping the left door shut all night does not work (Veteran 0%) (power runs out around 4:39 AM).",
+        "Config: Attacks 0.20 s after its doorway warning. Even elite players need at least 0.25 s to see a cue and press a key.",
+        "Difficulty spike: human win rate fell 100 points from Night 1."
+      ],
+      "checklist": [
+        "Play the night and watch the left door. When the warning for Sprocket appears, can you shut the door before it attacks?",
+        "Look for anything that predicts its move early (a camera, a sound). If you find one, the agent missed a strategy.",
+        "Decide: unfair, or an intended \"learn the pattern\" challenge?"
+      ],
+      "suggestion": "Give Sprocket a warning a person can answer: raise attackDelay from 0.2 s to at least 1 s (the other animatronics tonight allow 4.6 s or more), or add a cue before it reaches the door.",
+      "play": {
+        "night": 2,
+        "note": "Sprocket: attacks faster than a person can react"
+      },
+      "timeline": [
+        {
+          "time": 44.99999999999958,
+          "text": "Sprocket reaches the left door; attack in 0.20 s unless the door is shut.",
+          "tone": "warning",
+          "clock": "12:44 AM"
+        },
+        {
+          "time": 44.99999999999958,
+          "text": "Player sees the Sprocket warning and reaches for the left door (reaction 0.43 s).",
+          "tone": "player",
+          "clock": "12:44 AM"
+        },
+        {
+          "time": 45.19999999999957,
+          "text": "Sprocket gets in through the left door.",
+          "tone": "danger",
+          "clock": "12:45 AM"
+        }
+      ],
+      "metrics": {
+        "survey": {
+          "rookie": 0,
+          "average": 0,
+          "veteran": 0,
+          "perfect": 1
+        },
+        "removal": {
+          "id": "sprocket",
+          "name": "Sprocket",
+          "winRate": 1,
+          "lift": 1
+        },
+        "solo": {
+          "veteran": 0,
+          "perfect": 1
+        },
+        "camp": 0
+      }
+    },
+    {
+      "id": "night-3-brassbones",
+      "night": 3,
+      "animatronic": {
+        "id": "brassbones",
+        "name": "Brassbones",
+        "side": "right",
+        "color": "#d4b14a"
+      },
+      "severity": "critical",
+      "category": "power",
+      "reviewRequired": true,
+      "confidence": "high",
+      "title": "Brassbones needs more power than the night has",
+      "summary": "Stopping Brassbones takes the right door shut at least 75% of the time it is active. Even perfect play wins 0%, running out of power around 5:13 AM.",
+      "evidence": [
+        "Survey (150 nights per player): Rookie 0%, Average player 0%, Veteran 0%, Perfect bot 0%.",
+        "Taking Brassbones out raises the Perfect bot win rate from 0% to 100% (+100 pts).",
+        "Brassbones alone: Veteran 0%, perfect bot 0%.",
+        "Keeping the right door shut all night does not work (Veteran 0%) (power runs out around 4:29 AM).",
+        "Config: Needs the right door shut at least 75% of the time it is active (53 power), but the night only leaves 45 power for every device combined."
+      ],
+      "checklist": [
+        "Play the night and shut the right door each time Brassbones arrives. Note what time the power runs out.",
+        "Try any strategy you think the agent missed (timing the door, ignoring other threats).",
+        "Decide whether to shorten the door hold, lengthen the return trip, or lower power costs."
+      ],
+      "suggestion": "Cut Brassbones's door time: lower blockDuration from 30 s to about 3 s, or send it further back after a block (retreatIndex) so the return trip takes longer.",
+      "play": {
+        "night": 3,
+        "note": "Brassbones: needs more power than the night has"
+      },
+      "timeline": [
+        {
+          "time": 282.2500000000299,
+          "text": "Bonnie is blocked and retreats.",
+          "tone": "safe",
+          "clock": "4:42 AM"
+        },
+        {
+          "time": 282.95000000003006,
+          "text": "Player opens the left door.",
+          "tone": "player",
+          "clock": "4:42 AM"
+        },
+        {
+          "time": 283.00000000003007,
+          "text": "Brassbones is blocked and retreats.",
+          "tone": "safe",
+          "clock": "4:43 AM"
+        },
+        {
+          "time": 283.6500000000302,
+          "text": "Player opens the right door.",
+          "tone": "player",
+          "clock": "4:43 AM"
+        },
+        {
+          "time": 286.1000000000308,
+          "text": "Chica reaches the right door; attack in 5.95 s unless the door is shut.",
+          "tone": "warning",
+          "clock": "4:46 AM"
+        },
+        {
+          "time": 286.1000000000308,
+          "text": "Player sees the Chica warning and reaches for the right door (reaction 0.51 s).",
+          "tone": "player",
+          "clock": "4:46 AM"
+        },
+        {
+          "time": 286.6500000000309,
+          "text": "Player closes the right door.",
+          "tone": "player",
+          "clock": "4:46 AM"
+        },
+        {
+          "time": 286.85000000003095,
+          "text": "Brassbones reaches the right door; attack in 6.00 s unless the door is shut.",
+          "tone": "warning",
+          "clock": "4:46 AM"
+        },
+        {
+          "time": 287.80000000003116,
+          "text": "Power runs out. Every door opens.",
+          "tone": "danger",
+          "clock": "4:47 AM"
+        },
+        {
+          "time": 305.80000000003525,
+          "text": "Caught in the dark after the power failure.",
+          "tone": "danger",
+          "clock": "5:05 AM"
+        }
+      ],
+      "metrics": {
+        "survey": {
+          "rookie": 0,
+          "average": 0,
+          "veteran": 0,
+          "perfect": 0
+        },
+        "removal": {
+          "id": "brassbones",
+          "name": "Brassbones",
+          "winRate": 1,
+          "lift": 1
+        },
+        "solo": {
+          "veteran": 0,
+          "perfect": 0
+        },
+        "camp": 0
+      }
+    },
+    {
+      "id": "night-5-hush",
+      "night": 5,
+      "animatronic": {
+        "id": "hush",
+        "name": "Hush",
+        "side": "left",
+        "color": "#9aa3ad"
+      },
+      "severity": "high",
+      "category": "no-tells",
+      "reviewRequired": true,
+      "confidence": "high",
+      "title": "Hush gives players no warning at all",
+      "summary": "Hush never appears on camera, in the doorway light, in the warning text, or in sound. Veterans won 0%; the perfect bot, the only player that can see it, won 100%.",
+      "evidence": [
+        "Survey (150 nights per player): Rookie 0%, Average player 0%, Veteran 0%, Perfect bot 100%.",
+        "Taking Hush out raises the Veteran win rate from 0% to 100% (+100 pts).",
+        "Hush alone: Veteran 0%, perfect bot 100%.",
+        "Keeping the left door shut all night does not work (Veteran 0%) (power runs out around 4:33 AM).",
+        "Config: Gives no cue at all: never on camera, no doorway warning, no sound. A player cannot know when to close the door.",
+        "Difficulty spike: human win rate fell 100 points from Night 4."
+      ],
+      "checklist": [
+        "Play the night. When Hush gets you, was there any picture, light, text or sound that warned you?",
+        "Check whether the missing tell is on purpose (a design choice) or a bug (missing art, sound, or camera placement).",
+        "Decide: unfair, or a deliberate \"guess\" mechanic that needs a hint in the briefing?"
+      ],
+      "suggestion": "Give Hush at least one tell: show it on a camera or in the left doorway light, or play footsteps when it reaches the door. Then rerun the agent.",
+      "play": {
+        "night": 5,
+        "note": "Hush: gives players no warning at all"
+      },
+      "timeline": [
+        {
+          "time": 57.049999999998896,
+          "text": "Bonnie reaches the left door; attack in 4.62 s unless the door is shut.",
+          "tone": "warning",
+          "clock": "12:57 AM"
+        },
+        {
+          "time": 57.049999999998896,
+          "text": "Player sees the Bonnie warning and reaches for the left door (reaction 0.35 s).",
+          "tone": "player",
+          "clock": "12:57 AM"
+        },
+        {
+          "time": 57.44999999999887,
+          "text": "Player closes the left door.",
+          "tone": "player",
+          "clock": "12:57 AM"
+        },
+        {
+          "time": 60.4499999999987,
+          "text": "Bonnie is blocked and retreats.",
+          "tone": "safe",
+          "clock": "1:00 AM"
+        },
+        {
+          "time": 61.19999999999866,
+          "text": "Player opens the left door.",
+          "tone": "player",
+          "clock": "1:01 AM"
+        },
+        {
+          "time": 84.34999999999735,
+          "text": "Hush reaches the left door (no warning shown); attack in 3.00 s unless the door is shut.",
+          "tone": "danger",
+          "clock": "1:24 AM"
+        },
+        {
+          "time": 87.34999999999718,
+          "text": "Hush gets in through the left door.",
+          "tone": "danger",
+          "clock": "1:27 AM"
+        }
+      ],
+      "metrics": {
+        "survey": {
+          "rookie": 0,
+          "average": 0,
+          "veteran": 0,
+          "perfect": 1
+        },
+        "removal": {
+          "id": "hush",
+          "name": "Hush",
+          "winRate": 1,
+          "lift": 1
+        },
+        "solo": {
+          "veteran": 0,
+          "perfect": 1
+        },
+        "camp": 0
+      }
+    }
+  ],
+  "log": [
+    {
+      "text": "Phase 1 · Survey",
+      "tone": "phase",
+      "indent": 0
+    },
+    {
+      "text": "Playing every night as 4 kinds of player, 150 times each.",
+      "tone": "normal",
+      "indent": 0
+    },
+    {
+      "text": "Night 1 (Bonnie, Chica, Freddy, Foxy): Rookie 97% · Average player 100% · Veteran 100% · Perfect bot 100%",
+      "tone": "normal",
+      "indent": 1
+    },
+    {
+      "text": "Night 2 (Bonnie, Chica, Freddy, Foxy, Sprocket): Rookie 0% · Average player 0% · Veteran 0% · Perfect bot 100%",
+      "tone": "normal",
+      "indent": 1
+    },
+    {
+      "text": "Night 3 (Bonnie, Chica, Freddy, Foxy, Brassbones): Rookie 0% · Average player 0% · Veteran 0% · Perfect bot 0%",
+      "tone": "normal",
+      "indent": 1
+    },
+    {
+      "text": "Night 4 (Bonnie, Chica, Freddy, Foxy): Rookie 75% · Average player 100% · Veteran 100% · Perfect bot 100%",
+      "tone": "normal",
+      "indent": 1
+    },
+    {
+      "text": "Night 5 (Bonnie, Chica, Freddy, Foxy, Hush): Rookie 0% · Average player 0% · Veteran 0% · Perfect bot 100%",
+      "tone": "normal",
+      "indent": 1
+    },
+    {
+      "text": "Phase 2 · Detect",
+      "tone": "phase",
+      "indent": 0
+    },
+    {
+      "text": "Night 1 looks fair: Average 100%, Veteran 100%, Rookie 97%.",
+      "tone": "safe",
+      "indent": 1
+    },
+    {
+      "text": "Night 2: the perfect bot wins 100%, but Veterans win 0%. Something here needs more than human reflexes or senses. Human win rate fell 100 points from Night 1.",
+      "tone": "danger",
+      "indent": 1
+    },
+    {
+      "text": "Night 3: even the perfect bot wins only 0%. Nobody can beat this night.",
+      "tone": "danger",
+      "indent": 1
+    },
+    {
+      "text": "Night 4 looks fair: Average 100%, Veteran 100%, Rookie 75%.",
+      "tone": "safe",
+      "indent": 1
+    },
+    {
+      "text": "Night 5: the perfect bot wins 100%, but Veterans win 0%. Something here needs more than human reflexes or senses. Human win rate fell 100 points from Night 4.",
+      "tone": "danger",
+      "indent": 1
+    },
+    {
+      "text": "Phase 3 · Investigate",
+      "tone": "phase",
+      "indent": 0
+    },
+    {
+      "text": "Night 2",
+      "tone": "heading",
+      "indent": 0
+    },
+    {
+      "text": "100% of human losses are to Sprocket.",
+      "tone": "normal",
+      "indent": 1
+    },
+    {
+      "text": "Removing one animatronic at a time and replaying as the Veteran (90 nights each):",
+      "tone": "normal",
+      "indent": 1
+    },
+    {
+      "text": "without Bonnie: 0% → 0% (+0 pts)",
+      "tone": "muted",
+      "indent": 2
+    },
+    {
+      "text": "without Chica: 0% → 0% (+0 pts)",
+      "tone": "muted",
+      "indent": 2
+    },
+    {
+      "text": "without Freddy: 0% → 0% (+0 pts)",
+      "tone": "muted",
+      "indent": 2
+    },
+    {
+      "text": "without Foxy: 0% → 0% (+0 pts)",
+      "tone": "muted",
+      "indent": 2
+    },
+    {
+      "text": "without Sprocket: 0% → 100% (+100 pts)  ← cause",
+      "tone": "danger",
+      "indent": 2
+    },
+    {
+      "text": "Sprocket on its own: Veteran 0% · Perfect bot 100%.",
+      "tone": "normal",
+      "indent": 1
+    },
+    {
+      "text": "Workaround check: a Veteran who keeps the left door shut from 12:40 AM on wins 0% (power runs out around 4:39 AM).",
+      "tone": "normal",
+      "indent": 1
+    },
+    {
+      "text": "Config check: Attacks 0.20 s after its doorway warning. Even elite players need at least 0.25 s to see a cue and press a key.",
+      "tone": "warning",
+      "indent": 1
+    },
+    {
+      "text": "Verdict: Sprocket attacks faster than a person can react (high, high confidence).",
+      "tone": "danger",
+      "indent": 1
+    },
+    {
+      "text": "Night 3",
+      "tone": "heading",
+      "indent": 0
+    },
+    {
+      "text": "100% of human losses are to power failure. A power failure is a symptom, not a cause, so the agent will look for what is eating the power.",
+      "tone": "normal",
+      "indent": 1
+    },
+    {
+      "text": "Removing one animatronic at a time and replaying as the Perfect bot (90 nights each):",
+      "tone": "normal",
+      "indent": 1
+    },
+    {
+      "text": "without Bonnie: 0% → 0% (+0 pts)",
+      "tone": "muted",
+      "indent": 2
+    },
+    {
+      "text": "without Chica: 0% → 0% (+0 pts)",
+      "tone": "muted",
+      "indent": 2
+    },
+    {
+      "text": "without Freddy: 0% → 0% (+0 pts)",
+      "tone": "muted",
+      "indent": 2
+    },
+    {
+      "text": "without Foxy: 0% → 0% (+0 pts)",
+      "tone": "muted",
+      "indent": 2
+    },
+    {
+      "text": "without Brassbones: 0% → 100% (+100 pts)  ← cause",
+      "tone": "danger",
+      "indent": 2
+    },
+    {
+      "text": "Brassbones on its own: Veteran 0% · Perfect bot 0%.",
+      "tone": "normal",
+      "indent": 1
+    },
+    {
+      "text": "Workaround check: a Veteran who keeps the right door shut from 12:35 AM on wins 0% (power runs out around 4:29 AM).",
+      "tone": "normal",
+      "indent": 1
+    },
+    {
+      "text": "Config check: Needs the right door shut at least 75% of the time it is active (53 power), but the night only leaves 45 power for every device combined.",
+      "tone": "warning",
+      "indent": 1
+    },
+    {
+      "text": "Verdict: Brassbones needs more power than the night has (critical, high confidence).",
+      "tone": "danger",
+      "indent": 1
+    },
+    {
+      "text": "Night 5",
+      "tone": "heading",
+      "indent": 0
+    },
+    {
+      "text": "100% of human losses are to Hush.",
+      "tone": "normal",
+      "indent": 1
+    },
+    {
+      "text": "Removing one animatronic at a time and replaying as the Veteran (90 nights each):",
+      "tone": "normal",
+      "indent": 1
+    },
+    {
+      "text": "without Bonnie: 0% → 0% (+0 pts)",
+      "tone": "muted",
+      "indent": 2
+    },
+    {
+      "text": "without Chica: 0% → 0% (+0 pts)",
+      "tone": "muted",
+      "indent": 2
+    },
+    {
+      "text": "without Freddy: 0% → 0% (+0 pts)",
+      "tone": "muted",
+      "indent": 2
+    },
+    {
+      "text": "without Foxy: 0% → 0% (+0 pts)",
+      "tone": "muted",
+      "indent": 2
+    },
+    {
+      "text": "without Hush: 0% → 100% (+100 pts)  ← cause",
+      "tone": "danger",
+      "indent": 2
+    },
+    {
+      "text": "Hush on its own: Veteran 0% · Perfect bot 100%.",
+      "tone": "normal",
+      "indent": 1
+    },
+    {
+      "text": "Workaround check: a Veteran who keeps the left door shut from 1:05 AM on wins 0% (power runs out around 4:33 AM).",
+      "tone": "normal",
+      "indent": 1
+    },
+    {
+      "text": "Config check: Gives no cue at all: never on camera, no doorway warning, no sound. A player cannot know when to close the door.",
+      "tone": "warning",
+      "indent": 1
+    },
+    {
+      "text": "Verdict: Hush gives players no warning at all (high, high confidence).",
+      "tone": "danger",
+      "indent": 1
+    },
+    {
+      "text": "Phase 4 · Call for human review",
+      "tone": "phase",
+      "indent": 0
+    },
+    {
+      "text": "REVIEW REQUIRED · Night 2 · Sprocket attacks faster than a person can react",
+      "tone": "danger",
+      "indent": 1
+    },
+    {
+      "text": "REVIEW REQUIRED · Night 3 · Brassbones needs more power than the night has",
+      "tone": "danger",
+      "indent": 1
+    },
+    {
+      "text": "REVIEW REQUIRED · Night 5 · Hush gives players no warning at all",
+      "tone": "danger",
+      "indent": 1
+    }
+  ]
+}

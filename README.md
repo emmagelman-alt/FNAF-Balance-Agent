@@ -1,5 +1,7 @@
 # FNAF1 — first playable
 
+> **This copy is the balance-agent demo.** It is a copy of the Phase 2 game with an automated beta tester added in [`balance-agent/`](balance-agent/README.md). Three deliberately overpowered animatronics were planted for the demo: **Sprocket** (Night 2), **Brassbones** (Night 3) and **Hush** (Night 5). The agent plays every night as different players, flags these three as unfair, explains why, and asks a human to play each one and confirm. Run `node balance-agent/run.js`, then see [balance-agent/README.md](balance-agent/README.md). Other changes to the game: `configForNight` turns night-only animatronics on (`src/config.js`); a `stealth` option hides an animatronic from cameras, the doorway, warning text and sound (`src/engine.js`, `src/render.js`, `src/audio.js`); and `?review=<night>` opens a flagged night for a human reviewer with its own save slot (`src/main.js`, `src/save.js`, `index.html`, `styles.css`). The rest of this README describes the game as it was in Phase 2.
+
 A local browser survival game: last from midnight to 6 AM using cameras, independent doors and door lights, and limited power. **Nights 1–5 are playable with Bonnie, Chica, Freddy, and Foxy, and each night is harder than the last.** Progress saves in your browser. Plain HTML, CSS, and JavaScript; no install, build, account, or external service required.
 
 ## Launch

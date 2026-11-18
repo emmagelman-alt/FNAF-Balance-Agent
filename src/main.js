@@ -8,6 +8,10 @@ const params = new URLSearchParams(location.search);
 const dev = params.get('dev') === '1';
 // Deterministic manual mode is reserved for the local browser regression page.
 const manual = dev && params.get('manual') === '1';
+// Human review mode, opened from the balance agent's report: ?review=<night>&note=<why>.
+// Start goes straight to the flagged night, and progress saves under its own key.
+const reviewNight = Number(params.get('review'));
+const review = Number.isInteger(reviewNight) && reviewNight >= 1 && reviewNight <= NIGHTS.length ? reviewNight : null;
 let state = createState();
 // The current night's timing. Nights share routes, names, and duration, so the
 // renderer and audio keep using the base CONFIG.
@@ -21,10 +25,10 @@ const heldLights = new Set();
 const render = createRenderer(() => paint(), CONFIG, { forcePlaceholders: dev && params.get('noart') === '1' });
 // The regression page records sound cues without playing them.
 const sound = createAudio(CONFIG, { silent: manual });
-const save = createSave(dev ? SAVE_KEYS.dev : SAVE_KEYS.play);
+const save = createSave(dev ? SAVE_KEYS.dev : review ? SAVE_KEYS.review : SAVE_KEYS.play);
 if (save.get().muted) sound.toggleMute();
 let savedWin = null;
-function paint() { render(state, { dev, speed, muted: sound.muted, progress: save.get() }); sound.update(state); }
+function paint() { render(state, { dev, speed, muted: sound.muted, progress: save.get(), review }); sound.update(state); }
 // Record each won night once, whether the live loop or a dev shortcut finished it.
 function recordWin() { if (state.mode === 'won' && savedWin !== state) { savedWin = state; save.win(state.night); } }
 
@@ -78,11 +82,21 @@ function action(value) { act(state, value); paint(); }
 function cycleSpeed() { speed = speed === 1 ? 4 : speed === 4 ? 12 : 1; lastTime = performance.now(); paint(); }
 function toggleMute() { sound.toggleMute(); save.setMuted(sound.muted); paint(); }
 
-document.getElementById('start').addEventListener('click', () => { save.newGame(); startNight(1); });
+document.getElementById('start').addEventListener('click', () => {
+  if (review) return startNight(review);
+  save.newGame(); startNight(1);
+});
 document.getElementById('continue').addEventListener('click', () => startNight(save.get().night));
 // After a win the result button starts the next night; after a loss it retries the same one.
 document.getElementById('retry').addEventListener('click', () =>
-  startNight(state.mode === 'won' ? Math.min(state.night + 1, NIGHTS.length) : state.night));
+  startNight(state.mode === 'won' && !review ? Math.min(state.night + 1, NIGHTS.length) : state.night));
+if (review) {
+  const note = params.get('note');
+  document.getElementById('review-banner').hidden = false;
+  document.getElementById('review-detail').textContent = `Night ${review} · ${note || 'flagged by the balance agent'}`;
+  document.getElementById('review-back').href = `balance-agent/reports/balance-report.html#night-${review}`;
+  document.getElementById('start').firstChild.nodeValue = `Start review · Night ${review} `;
+}
 for (const id of ['result-menu', 'menu-button']) document.getElementById(id).addEventListener('click', menu);
 document.getElementById('pause-button').addEventListener('click', () => pause());
 document.getElementById('resume').addEventListener('click', () => pause(false));

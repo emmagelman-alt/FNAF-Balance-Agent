@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a0d0c">
+<title>Balance Agent Report</title>
+<link rel="icon" href="data:,">
+<style>
+:root { color-scheme: dark; --bg:#0a0d0c; --panel:#111714; --panel-2:#161f1a; --edge:#2c3631; --paper:#e7e6dd; --muted:#8e978f; --mint:#9cc7af; --amber:#e6bc75; --red:#e99b8d; --critical:#ff7a6b; --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+* { box-sizing:border-box; }
+body { margin:0; background:radial-gradient(ellipse at 50% 0,#1c2420 0,transparent 60%),var(--bg); color:var(--paper); font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; }
+main { width:min(1120px,100%); margin:0 auto; padding:32px 16px 64px; }
+a { color:var(--amber); }
+h1,h2,h3 { margin:0; font-weight:600; }
+h2 { font:600 12px/1 var(--mono); letter-spacing:.16em; color:var(--muted); text-transform:uppercase; margin:44px 0 16px; }
+.eyebrow { font:11px var(--mono); letter-spacing:.16em; color:var(--amber); text-transform:uppercase; }
+header h1 { font-size:clamp(26px,4vw,38px); margin:8px 0 6px; letter-spacing:-.01em; }
+header p { margin:0; color:var(--muted); }
+.notice { margin-top:18px; padding:12px 14px; border:1px dashed var(--amber); border-radius:6px; color:var(--amber); font-size:13px; }
+.notice code { font-family:var(--mono); color:var(--paper); }
+.headline { display:flex; flex-wrap:wrap; gap:12px; margin-top:24px; }
+.stat { flex:1 1 160px; padding:16px 18px; background:var(--panel); border:1px solid var(--edge); border-radius:8px; }
+.stat strong { display:block; font-size:30px; line-height:1.1; font-variant-numeric:tabular-nums; }
+.stat span { font-size:13px; color:var(--muted); }
+.stat.alert { border-color:#6b3a33; background:#1d1312; }
+.stat.alert strong { color:var(--red); }
+.stat.ok strong { color:var(--mint); }
+.ticket { margin-bottom:18px; background:var(--panel); border:1px solid var(--edge); border-left:4px solid var(--red); border-radius:8px; overflow:hidden; scroll-margin-top:16px; }
+.ticket.critical { border-left-color:var(--critical); }
+.ticket.medium { border-left-color:var(--amber); }
+.ticket-head { padding:18px 20px 14px; display:grid; gap:6px; }
+.badges { display:flex; flex-wrap:wrap; gap:6px; align-items:center; }
+.badge { font:600 10px/1 var(--mono); letter-spacing:.12em; text-transform:uppercase; padding:5px 7px; border-radius:3px; border:1px solid var(--edge); color:var(--muted); }
+.badge.critical { color:#1a0d0b; background:var(--critical); border-color:var(--critical); }
+.badge.high { color:#1a0d0b; background:var(--red); border-color:var(--red); }
+.badge.medium { color:#1a140a; background:var(--amber); border-color:var(--amber); }
+.badge.done { color:#0d1a12; background:var(--mint); border-color:var(--mint); }
+.ticket h3 { font-size:20px; line-height:1.3; }
+.ticket-head p { margin:0; color:#c9cdc4; }
+.swatch { display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:6px; vertical-align:baseline; }
+.ticket-body { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); border-top:1px solid var(--edge); }
+.ticket-body section { padding:16px 20px; }
+.ticket-body section + section { border-left:1px solid var(--edge); }
+.ticket-body h4 { margin:0 0 10px; font:600 11px var(--mono); letter-spacing:.12em; color:var(--muted); text-transform:uppercase; }
+.ticket-body ul, .ticket-body ol { margin:0; padding-left:18px; }
+.ticket-body li { margin:0 0 7px; font-size:14px; color:#d2d6cd; }
+.timeline { list-style:none; padding:0!important; font:12.5px/1.5 var(--mono); }
+.timeline li { display:grid; grid-template-columns:72px 1fr; gap:8px; margin:0 0 5px!important; font-size:12.5px!important; }
+.timeline time { color:var(--muted); }
+.timeline .tone-danger { color:var(--red); } .timeline .tone-warning { color:var(--amber); } .timeline .tone-safe { color:var(--mint); } .timeline .tone-player { color:#b9c4d6; }
+.fix { margin:14px 0 0; padding:12px 14px; background:var(--panel-2); border-radius:6px; font-size:14px; color:#d2d6cd; }
+.fix b { color:var(--mint); }
+.review { padding:16px 20px 18px; border-top:1px solid var(--edge); background:var(--panel-2); display:grid; gap:12px; }
+.actions { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+.button { font-family:inherit; font-size:13px; font-weight:600; line-height:1; display:inline-flex; align-items:center; gap:8px; padding:11px 14px; border-radius:5px; border:1px solid var(--edge); background:#1b2520; color:var(--paper); cursor:pointer; text-decoration:none; }
+.button:hover { border-color:var(--mint); }
+.button:focus-visible, textarea:focus-visible { outline:2px solid var(--amber); outline-offset:2px; }
+.button.play { background:var(--amber); border-color:var(--amber); color:#191e16; }
+.button[aria-pressed=true] { background:#2b3d33; border-color:var(--mint); color:var(--mint); }
+.verdict-label { font-size:13px; color:var(--muted); margin-right:4px; }
+textarea { width:100%; min-height:64px; resize:vertical; padding:10px 12px; border-radius:5px; border:1px solid var(--edge); background:#0d1210; color:var(--paper); font-family:inherit; font-size:14px; line-height:1.5; }
+.saved { font-size:12px; color:var(--muted); }
+.table-wrap { overflow-x:auto; border:1px solid var(--edge); border-radius:8px; background:var(--panel); }
+table { width:100%; border-collapse:collapse; font-size:14px; }
+th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--edge); white-space:nowrap; }
+th { font:600 11px var(--mono); letter-spacing:.1em; color:var(--muted); text-transform:uppercase; }
+tr:last-child td { border-bottom:0; }
+td.rate { text-align:center; font-variant-numeric:tabular-nums; font-weight:600; }
+.status { font:600 11px var(--mono); letter-spacing:.08em; text-transform:uppercase; }
+.status.fair { color:var(--mint); } .status.unwinnable { color:var(--critical); } .status.beyond-humans { color:var(--red); } .status.expert-only { color:var(--amber); }
+.legend { margin-top:10px; font-size:13px; color:var(--muted); }
+details.night { margin-bottom:10px; background:var(--panel); border:1px solid var(--edge); border-radius:8px; }
+details.night summary { cursor:pointer; padding:14px 18px; display:flex; flex-wrap:wrap; gap:10px 16px; align-items:center; list-style:none; }
+details.night summary::-webkit-details-marker { display:none; }
+details.night summary::before { content:'▸'; color:var(--muted); }
+details.night[open] summary::before { content:'▾'; }
+details.night summary strong { font-size:16px; }
+details.night summary span { color:var(--muted); font-size:13px; }
+.night-body { padding:0 18px 18px; display:grid; grid-template-columns:minmax(0,1fr); gap:18px; }
+.night-body h4 { margin:0 0 8px; font:600 11px var(--mono); letter-spacing:.12em; color:var(--muted); text-transform:uppercase; }
+.bars { display:grid; gap:8px; }
+.bar-row { display:grid; grid-template-columns:120px 1fr 52px; gap:10px; align-items:center; font-size:13px; }
+.bar { display:flex; height:14px; border-radius:3px; overflow:hidden; background:#1e2823; }
+.bar i { display:block; height:100%; }
+.bar-row b { text-align:right; font-variant-numeric:tabular-nums; }
+.keys { display:flex; flex-wrap:wrap; gap:12px; font-size:12px; color:var(--muted); }
+.issue { color:var(--red); white-space:normal; min-width:260px; font-size:13px; }
+.log { margin:0; padding:16px 18px; background:#070908; border:1px solid var(--edge); border-radius:8px; font:12.5px/1.7 var(--mono); overflow-x:auto; white-space:pre-wrap; }
+.log .tone-phase { color:var(--amber); font-weight:700; display:block; margin-top:10px; }
+.log .tone-heading { color:var(--paper); font-weight:700; }
+.log .tone-danger { color:var(--red); } .log .tone-warning { color:var(--amber); } .log .tone-safe { color:var(--mint); } .log .tone-muted { color:#6f786f; }
+.players { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; }
+.player { padding:14px 16px; background:var(--panel); border:1px solid var(--edge); border-radius:8px; font-size:13px; color:#c9cdc4; }
+.player strong { display:block; color:var(--paper); font-size:15px; margin-bottom:4px; }
+.export { margin-top:6px; }
+footer { margin-top:48px; color:var(--muted); font-size:12px; }
+@media (max-width:760px) {
+  .ticket-body { grid-template-columns:minmax(0,1fr); }
+  .night-body { padding:0 12px 14px; }
+  .ticket-body section + section { border-left:0; border-top:1px solid var(--edge); }
+  .bar-row { grid-template-columns:90px 1fr 44px; }
+  .timeline li { grid-template-columns:62px 1fr; }
+}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow">Balance agent · playtest report</p>
+    <h1 id="headline">Loading report…</h1>
+    <p id="subhead"></p>
+    <p id="file-notice" class="notice" hidden>To play a flagged night from this page, serve the game folder first: run <code>python3 -m http.server 8000</code> in the repo folder, then open <code>http://localhost:8000/balance-agent/reports/balance-report.html</code>.</p>
+    <div class="headline" id="stats"></div>
+  </header>
+
+  <h2>Human review queue</h2>
+  <div id="tickets"></div>
+  <div class="export"><button class="button" id="export" type="button">Download review verdicts (JSON)</button> <span class="saved" id="export-note"></span></div>
+
+  <h2>Difficulty map · win rate by night and player</h2>
+  <div class="table-wrap"><table id="map"></table></div>
+  <p class="legend">Each cell is the share of simulated nights that player survived. Red means almost nobody survived, green means almost everybody did. The perfect bot is the ceiling: if it can't win, nobody can.</p>
+
+  <h2>Night details</h2>
+  <div id="nights"></div>
+
+  <h2>Who the agent played as</h2>
+  <div class="players" id="players"></div>
+
+  <h2>Agent log</h2>
+  <pre class="log" id="log"></pre>
+
+  <footer id="footer"></footer>
+</main>
+<script id="report-data" type="application/json">{"meta":{"generatedAt":"2026-11-18T21:21:15.501Z","seconds":14.184,"runsPerPlayer":150,"investigationRuns":90,"simulatedNights":3000,"reactionFloor":0.25},"thresholds":{"unwinnable":0.5,"beyondHumans":0.15,"expertOnly":0.1,"culpritLift":0.3,"spike":0.4},"players":[{"id":"rookie","label":"Rookie","kind":"human","blurb":"First few nights: slow reactions (~0.85 s), misses 1 warning in 8, rarely checks Pirate Cove."},{"id":"average","label":"Average player","kind":"human","blurb":"Knows the rules: ~0.6 s reactions, misses 1 warning in 16, checks Pirate Cove every ~18 s."},{"id":"veteran","label":"Veteran","kind":"human","blurb":"Top-tier human: ~0.38 s reactions (never under 0.26 s), rarely misses a warning, watches the Cove often."},{"id":"perfect","label":"Perfect bot","kind":"bot","blurb":"Not a human. Sees the true game state, including hidden animatronics, and reacts in 0.05 s."}],"nights":[{"night":1,"roster":["Bonnie","Chica","Freddy","Foxy"],"results":{"rookie":{"runs":150,"winRate":0.9666666666666667,"causes":{"bonnie":2,"freddy":3},"meanLossTime":296.1200000000331,"meanPowerAtWin":39.192503448260204,"meanOutageAt":null,"outageRate":0,"meanDoorSeconds":{"left":19.32966666666681,"right":13.848666666666729},"firstLossSeed":4216464424,"lossSeeds":{"bonnie":4216464424,"freddy":3227526235}},"average":{"runs":150,"winRate":1,"causes":{},"meanLossTime":null,"meanPowerAtWin":38.1509733333187,"meanOutageAt":null,"outageRate":0,"meanDoorSeconds":{"left":18.891333333333467,"right":13.64333333333339},"firstLossSeed":null,"lossSeeds":{}},"veteran":{"runs":150,"winRate":1,"causes":{},"meanLossTime":null,"meanPowerAtWin":37.16744666665298,"meanOutageAt":null,"outageRate":0,"meanDoorSeconds":{"left":17.807666666666773,"right":12.731000000000048},"firstLossSeed":null,"lossSeeds":{}},"perfect":{"runs":150,"winRate":1,"causes":{},"meanLossTime":null,"meanPowerAtWin":42.592113333313264,"meanOutageAt":null,"outageRate":0,"meanDoorSeconds":{"left":12.024333333333345,"right":9.043999999999999},"firstLossSeed":null,"lossSeeds":{}}},"audit":{"spare":49.599999999999994,"animatronics":[{"id":"bonnie","name":"Bonnie","side":"left","color":"#b79ae8","startAt":35,"warning":7,"cues":["camera (CAM 1A, 1B, 2A, 2B)","doorway warning","footsteps"],"doorDuty":0.04285714285714286,"minPower":3.064285714285714,"issues":[]},{"id":"chica","name":"Chica","side":"right","color":"#e3c56e","startAt":65,"warning":7,"cues":["camera (CAM 1A, 1B, 7, 4A, 4B)","doorway warning","footsteps"],"doorDuty":0.030612244897959183,"minPower":1.986734693877551,"issues":[]},{"id":"freddy","name":"Freddy","side":"right","color":"#d8a07b","startAt":190,"warning":5,"cues":["camera (CAM 1A, 1B, 7, 4A, 4B)","doorway warning","footsteps"],"doorDuty":0.022556390977443608,"minPower":0.8436090225563909,"issues":[]},{"id":"foxy","name":"Foxy","side":"left","color":"#e78674","startAt":75,"warning":6,"cues":["camera (CAM 1C, 2A)","sprint warning","footsteps"],"doorDuty":0.0026139334015229006,"minPower":4.633719740879646,"issues":[]}]},"humanRate":1,"spike":0,"status":"fair"},{"night":2,"roster":["Bonnie","Chica","Freddy","Foxy"],"results":{"rookie":{"runs":150,"winRate":0.9533333333333334,"causes":{"chica":2,"freddy":5},"meanLossTime":279.6500000000293,"meanPowerAtWin":35.0840073426461,"meanOutageAt":null,"outageRate":0,"meanDoorSeconds":{"left":20.72866666666683,"right":16.3110000000001},"firstLossSeed":1732568554,"lossSeeds":{"chica":1732568554,"freddy":1732715649}},"average":{"runs":150,"winRate":1,"causes":{},"meanLossTime":null,"meanPowerAtWin":34.98768333332248,"meanOutageAt":null,"outageRate":0,"meanDoorSeconds":{"left":19.778333333333485,"right":15.69500000000009},"firstLossSeed":null,"lossSeeds":{}},"veteran":{"runs":150,"winRate":1,"causes":{},"meanLossTime":null,"meanPowerAtWin":33.97767666665692,"meanOutageAt":null,"outageRate":0,"meanDoorSeconds":{"left":18.848666666666784,"right":14.820666666666744},"firstLossSeed":null,"lossSeeds":{}},"perfect":{"runs":150,"winRate":1,"causes":{},"meanLossTime":null,"meanPowerAtWin":37.96382333332103,"meanOutageAt":null,"outageRate":0,"meanDoorSeconds":{"left":14.890000000000045,"right":11.992333333333345},"firstLossSeed":null,"lossSeeds":{}}},"audit":{"spare":47.07999999999999,"animatronics":[{"id":"bonnie","name":"Bonnie","side":"left","color":"#b79ae8","startAt":29.75,"warning":6.44,"cues":["camera (CAM 1A, 1B, 2A, 2B)","doorway warning","footsteps"],"doorDuty":0.04728877679697352,"minPower":3.435766078184111,"issues":[]},{"id":"chica","name":"Chica","side":"right","color":"#e3c56e","startAt":55.25,"warning":6.44,"cues":["camera (CAM 1A, 1B, 7, 4A, 4B)","doorway warning","footsteps"],"doorDuty":0.03384476534296029,"minPower":2.2691222924187726,"issues":[]},{"id":"freddy","name":"Freddy","side":"right","color":"#d8a07b","startAt":161.5,"warning":4.6000000000000005,"cues":["camera (CAM 1A, 1B, 7, 4A, 4B)","doorway warning","footsteps"],"doorDuty":0.024979184013322234,"minPower":1.090840965861782,"issues":[]},{"id":"foxy","name":"Foxy","side":"left","color":"#e78674","startAt":63.75,"warning":5.5200000000000005,"cues":["camera (CAM 1C, 2A)","sprint warning","footsteps"],"doorDuty":0.0029993905964058576,"minPower":5.526902067232164,"issues":[]}]},"humanRate":1,"spike":0,"status":"fair"},{"night":3,"roster":["Bonnie","Chica","Freddy","Foxy"],"results":{"rookie":{"runs":150,"winRate":0.8133333333333334,"causes":{"chica":5,"freddy":11,"bonnie":12},"meanLossTime":246.68392857145045,"meanPowerAtWin":29.69334754098534,"meanOutageAt":null,"outageRate":0,"meanDoorSeconds":{"left":23.17466666666685,"right":20.240000000000144},"firstLossSeed":2599112054,"lossSeeds":{"chica":2599112054,"freddy":2800443482,"bonnie":561326767}},"average":{"runs":150,"winRate":1,"causes":{},"meanLossTime":null,"meanPowerAtWin":29.89079333333557,"meanOutageAt":null,"outageRate":0,"meanDoorSeconds":{"left":23.55166666666685,"right":21.81733333333351},"firstLossSeed":null,"lossSeeds":{}},"veteran":{"runs":150,"winRate":1,"causes":{},"meanLossTime":null,"meanPowerAtWin":29.32799333333606,"meanOutageAt":null,"outageRate":0,"meanDoorSeconds":{"left":22.241666666666855,"right":20.95366666666683},"firstLossSeed":null,"lossSeeds":{}},"perfect":{"runs":150,"winRate":1,"causes":{},"meanLossTime":null,"meanPowerAtWin":33.8517600000009,"meanOutageAt":null,"outageRate":0,"meanDoorSeconds":{"left":15.864666666666738,"right":14.918000000000044},"firstLossSeed":null,"lossSeeds":{}}},"audit":{"spare":44.55999999999999,"animatronics":[{"id":"bonnie","name":"Bonnie","side":"left","color":"#b79ae8","startAt":24.5,"warning":5.95,"cues":["camera (CAM 1A, 1B, 2A, 2B)","doorway warning","footsteps"],"doorDuty":0.05267778753292361,"minPower":3.888147497805092,"issues":[]},{"id":"chica","name":"Chica","side":"right","color":"#e3c56e","startAt":45.5,"warning":5.95,"cues":["camera (CAM 1A, 1B, 7, 4A, 4B)","doorway warning","footsteps"],"doorDuty":0.03780718336483931,"minPower":2.615879017013232,"issues":[]},{"id":"freddy","name":"Freddy","side":"right","color":"#d8a07b","startAt":133,"warning":4.25,"cues":["camera (CAM 1A, 1B, 7, 4A, 4B)","doorway warning","footsteps"],"doorDuty":0.027972027972027972,"minPower":1.396923076923077,"issues":[]},{"id":"foxy","name":"Foxy","side":"left","color":"#e78674","startAt":52.5,"warning":5.1,"cues":["camera (CAM 1C, 2A)","sprint warning","footsteps"],"doorDuty":0.003384313086312435,"minPower":6.473006424535479,"issues":[]}]},"humanRate":1,"spike":0,"status":"fair"},{"night":4,"roster":["Bonnie","Chica","Freddy","Foxy"],"results":{"rookie":{"runs":150,"winRate":0.7533333333333333,"causes":{"freddy":12,"chica":10,"bonnie":15},"meanLossTime":221.69054054055803,"meanPowerAtWin":25.295377433641644,"meanOutageAt":null,"outageRate":0,"meanDoorSeconds":{"left":25.33266666666689,"right":21.077000000000165},"firstLossSeed":562236789,"lossSeeds":{"freddy":562236789,"chica":495126313,"bonnie":139323077}},"average":{"runs":150,"winRate":1,"causes":{},"meanLossTime":null,"meanPowerAtWin":25.517423333345626,"meanOutageAt":null,"outageRate":0,"meanDoorSeconds":{"left":27.21866666666693,"right":23.413000000000185},"firstLossSeed":null,"lossSeeds":{}},"veteran":{"runs":150,"winRate":1,"causes":{},"meanLossTime":null,"meanPowerAtWin":25.75701000001091,"meanOutageAt":null,"outageRate":0,"meanDoorSeconds":{"left":25.79433333333359,"right":22.086333333333503},"firstLossSeed":null,"lossSeeds":{}},"perfect":{"runs":150,"winRate":1,"causes":{},"meanLossTime":null,"meanPowerAtWin":29.59604333334738,"meanOutageAt":null,"outageRate":0,"meanDoorSeconds":{"left":18.069333333333464,"right":16.6450000000001},"firstLossSeed":null,"lossSeeds":{}}},"audit":{"spare":42.04,"animatronics":[{"id":"bonnie","name":"Bonnie","side":"left","color":"#b79ae8","startAt":19.25,"warning":5.25,"cues":["camera (CAM 1A, 1B, 2A, 2B)","doorway warning","footsteps"],"doorDuty":0.05830903790087463,"minPower":4.371137026239067,"issues":[]},{"id":"chica","name":"Chica","side":"right","color":"#e3c56e","startAt":35.75,"warning":5.25,"cues":["camera (CAM 1A, 1B, 7, 4A, 4B)","doorway warning","footsteps"],"doorDuty":0.04189359028068706,"minPower":2.988479262672811,"issues":[]},{"id":"freddy","name":"Freddy","side":"right","color":"#d8a07b","startAt":104.50000000000001,"warning":3.75,"cues":["camera (CAM 1A, 1B, 7, 4A, 4B)","doorway warning","footsteps"],"doorDuty":0.031007751937984496,"minPower":1.7429457364341086,"issues":[]},{"id":"foxy","name":"Foxy","side":"left","color":"#e78674","startAt":41.25,"warning":4.5,"cues":["camera (CAM 1C, 2A)","sprint warning","footsteps"],"doorDuty":0.0037754004641421864,"minPower":7.485203345219903,"issues":[]}]},"humanRate":1,"spike":0,"status":"fair"},{"night":5,"roster":["Bonnie","Chica","Freddy","Foxy"],"results":{"rookie":{"runs":150,"winRate":0.58,"causes":{"bonnie":31,"freddy":23,"chica":9},"meanLossTime":218.73809523811326,"meanPowerAtWin":20.02652643679192,"meanOutageAt":null,"outageRate":0,"meanDoorSeconds":{"left":25.306666666666857,"right":23.294666666666846},"firstLossSeed":1197124411,"lossSeeds":{"bonnie":1197124411,"freddy":1213902030,"chica":3636641316}},"average":{"runs":150,"winRate":0.9133333333333333,"causes":{"freddy":10,"bonnie":2,"chica":1},"meanLossTime":249.31923076925324,"meanPowerAtWin":20.452013138695303,"meanOutageAt":null,"outageRate":0,"meanDoorSeconds":{"left":28.74600000000029,"right":28.53133333333361},"firstLossSeed":3942757331,"lossSeeds":{"freddy":3942757331,"bonnie":2181651789,"chica":1639302383}},"veteran":{"runs":150,"winRate":1,"causes":{},"meanLossTime":null,"meanPowerAtWin":20.706553333341063,"meanOutageAt":null,"outageRate":0,"meanDoorSeconds":{"left":28.93866666666693,"right":28.49266666666695},"firstLossSeed":null,"lossSeeds":{}},"perfect":{"runs":150,"winRate":1,"causes":{},"meanLossTime":null,"meanPowerAtWin":25.23680666667906,"meanOutageAt":null,"outageRate":0,"meanDoorSeconds":{"left":21.00000000000012,"right":19.42266666666679},"firstLossSeed":null,"lossSeeds":{}}},"audit":{"spare":39.519999999999996,"animatronics":[{"id":"bonnie","name":"Bonnie","side":"left","color":"#b79ae8","startAt":15.75,"warning":4.62,"cues":["camera (CAM 1A, 1B, 2A, 2B)","doorway warning","footsteps"],"doorDuty":0.06435006435006435,"minPower":4.873552123552124,"issues":[]},{"id":"chica","name":"Chica","side":"right","color":"#e3c56e","startAt":29.25,"warning":4.62,"cues":["camera (CAM 1A, 1B, 7, 4A, 4B)","doorway warning","footsteps"],"doorDuty":0.0462820117247763,"minPower":3.3677105831533476,"issues":[]},{"id":"freddy","name":"Freddy","side":"right","color":"#d8a07b","startAt":85.5,"warning":3.3000000000000003,"cues":["camera (CAM 1A, 1B, 7, 4A, 4B)","doorway warning","footsteps"],"doorDuty":0.03426613363792119,"minPower":2.0693318103940608,"issues":[]},{"id":"foxy","name":"Foxy","side":"left","color":"#e78674","startAt":33.75,"warning":3.9600000000000004,"cues":["camera (CAM 1C, 2A)","sprint warning","footsteps"],"doorDuty":0.004168433720091489,"minPower":8.458898337338656,"issues":[]}]},"humanRate":0.9566666666666667,"spike":0,"status":"fair"}],"tickets":[],"log":[{"text":"Phase 1 · Survey","tone":"phase","indent":0},{"text":"Playing every night as 4 kinds of player, 150 times each.","tone":"normal","indent":0},{"text":"Night 1 (Bonnie, Chica, Freddy, Foxy): Rookie 97% · Average player 100% · Veteran 100% · Perfect bot 100%","tone":"normal","indent":1},{"text":"Night 2 (Bonnie, Chica, Freddy, Foxy): Rookie 95% · Average player 100% · Veteran 100% · Perfect bot 100%","tone":"normal","indent":1},{"text":"Night 3 (Bonnie, Chica, Freddy, Foxy): Rookie 81% · Average player 100% · Veteran 100% · Perfect bot 100%","tone":"normal","indent":1},{"text":"Night 4 (Bonnie, Chica, Freddy, Foxy): Rookie 75% · Average player 100% · Veteran 100% · Perfect bot 100%","tone":"normal","indent":1},{"text":"Night 5 (Bonnie, Chica, Freddy, Foxy): Rookie 58% · Average player 91% · Veteran 100% · Perfect bot 100%","tone":"normal","indent":1},{"text":"Phase 2 · Detect","tone":"phase","indent":0},{"text":"Night 1 looks fair: Average 100%, Veteran 100%, Rookie 97%.","tone":"safe","indent":1},{"text":"Night 2 looks fair: Average 100%, Veteran 100%, Rookie 95%.","tone":"safe","indent":1},{"text":"Night 3 looks fair: Average 100%, Veteran 100%, Rookie 81%.","tone":"safe","indent":1},{"text":"Night 4 looks fair: Average 100%, Veteran 100%, Rookie 75%.","tone":"safe","indent":1},{"text":"Night 5 looks fair: Average 91%, Veteran 100%, Rookie 58%.","tone":"safe","indent":1},{"text":"No suspicious nights. Nothing to investigate.","tone":"safe","indent":1},{"text":"Phase 4 · Call for human review","tone":"phase","indent":0},{"text":"Nothing needs a human. Every night was beatable by human-like players.","tone":"safe","indent":1}]}</script>
+<script>
+const data = JSON.parse(document.getElementById('report-data').textContent);
+const pct = rate => `${Math.round(rate * 100)}%`;
+function el(tag, attrs = {}, ...children) {
+  const node = document.createElement(tag);
+  for (const [key, value] of Object.entries(attrs)) {
+    if (value === false || value == null) continue;
+    if (key === 'class') node.className = value;
+    else if (key === 'style') node.setAttribute('style', value);
+    else if (key.startsWith('on')) node.addEventListener(key.slice(2), value);
+    else node.setAttribute(key, value === true ? '' : value);
+  }
+  for (const child of children.flat()) if (child !== null && child !== undefined && child !== false) node.append(child.nodeType ? child : String(child));
+  return node;
+}
+const store = {
+  key: id => `fnaf-balance-review:${id}`,
+  get(id) { try { return JSON.parse(localStorage.getItem(this.key(id))) ?? {}; } catch { return {}; } },
+  set(id, value) { try { localStorage.setItem(this.key(id), JSON.stringify(value)); return true; } catch { return false; } },
+};
+const rateColor = rate => `hsl(${Math.round(4 + rate * 136)} 42% ${18 + rate * 6}%)`;
+const STATUS = { fair: 'Fair', unwinnable: 'Unwinnable', 'beyond-humans': 'Beyond humans', 'expert-only': 'Expert only' };
+const VERDICTS = [['unfair', 'Confirm: unfair'], ['tune', 'Needs tuning'], ['fine', 'Not a problem']];
+const CAUSE_COLORS = ['#e99b8d', '#e6bc75', '#9cc7af', '#b79ae8', '#7fd1c7', '#d8a07b', '#9aa3ad'];
+
+const fileMode = location.protocol === 'file:';
+document.getElementById('file-notice').hidden = !fileMode;
+const tickets = data.tickets;
+const required = tickets.filter(t => t.reviewRequired).length;
+document.getElementById('headline').textContent = tickets.length
+  ? `${tickets.length} area${tickets.length === 1 ? '' : 's'} flagged for human review`
+  : 'Every night looks fair';
+const generated = new Date(data.meta.generatedAt);
+document.getElementById('subhead').textContent = `${data.nights.length} nights · ${data.players.length} kinds of player · ${data.meta.simulatedNights.toLocaleString()} simulated nights in ${data.meta.seconds.toFixed(1)} s · ${generated.toLocaleString()}`;
+
+const stats = document.getElementById('stats');
+const fair = data.nights.filter(n => n.status === 'fair').length;
+stats.append(
+  el('div', { class: `stat ${required ? 'alert' : 'ok'}` }, el('strong', {}, required), el('span', {}, 'reviews required')),
+  el('div', { class: 'stat' }, el('strong', {}, tickets.filter(t => t.severity === 'critical').length), el('span', {}, 'unwinnable for anyone')),
+  el('div', { class: 'stat' }, el('strong', {}, tickets.filter(t => t.severity === 'high').length), el('span', {}, 'beyond human ability')),
+  el('div', { class: 'stat ok' }, el('strong', {}, `${fair}/${data.nights.length}`), el('span', {}, 'nights fair for humans')),
+);
+
+const ticketBox = document.getElementById('tickets');
+if (!tickets.length) ticketBox.append(el('p', { class: 'player' }, 'No problems found. Every night was beatable by human-like players.'));
+for (const ticket of tickets) {
+  const saved = store.get(ticket.id);
+  const playHref = `../../index.html?review=${ticket.night}&note=${encodeURIComponent(ticket.play.note)}`;
+  const savedNote = el('span', { class: 'saved' }, saved.at ? `Saved ${new Date(saved.at).toLocaleString()}` : 'Not reviewed yet');
+  const doneBadge = el('span', { class: 'badge done', hidden: !saved.verdict }, 'Reviewed');
+  const notes = el('textarea', { 'aria-label': `Reviewer notes for ${ticket.title}`, placeholder: 'What happened when you played it? (saved in this browser)' });
+  notes.value = saved.notes ?? '';
+  const buttons = VERDICTS.map(([value, label]) => el('button', { class: 'button', type: 'button', 'aria-pressed': String(saved.verdict === value), 'data-verdict': value }, label));
+  const persist = verdict => {
+    const record = { ...store.get(ticket.id), notes: notes.value, at: Date.now() };
+    if (verdict) record.verdict = verdict;
+    const ok = store.set(ticket.id, record);
+    for (const button of buttons) button.setAttribute('aria-pressed', String(button.dataset.verdict === record.verdict));
+    doneBadge.hidden = !record.verdict;
+    savedNote.textContent = ok ? `Saved ${new Date(record.at).toLocaleString()}` : 'Could not save in this browser; use the download button.';
+  };
+  for (const button of buttons) button.addEventListener('click', () => persist(button.dataset.verdict));
+  notes.addEventListener('change', () => persist());
+  ticketBox.append(el('article', { class: `ticket ${ticket.severity}`, id: `night-${ticket.night}`, 'data-ticket': ticket.id },
+    el('div', { class: 'ticket-head' },
+      el('div', { class: 'badges' },
+        el('span', { class: `badge ${ticket.severity}` }, ticket.severity),
+        el('span', { class: 'badge' }, `Night ${ticket.night}`),
+        el('span', { class: 'badge' }, el('span', { class: 'swatch', style: `background:${ticket.animatronic.color}` }), ticket.animatronic.name, ` · ${ticket.animatronic.side} door`),
+        el('span', { class: 'badge' }, `${ticket.confidence} confidence`),
+        el('span', { class: 'badge' }, ticket.reviewRequired ? 'Review required' : 'Review suggested'),
+        doneBadge),
+      el('h3', {}, ticket.title),
+      el('p', {}, ticket.summary)),
+    el('div', { class: 'ticket-body' },
+      el('section', {}, el('h4', {}, 'Evidence'), el('ul', {}, ticket.evidence.map(item => el('li', {}, item))),
+        el('p', { class: 'fix' }, el('b', {}, 'Suggested fix: '), ticket.suggestion)),
+      el('section', {},
+        el('h4', {}, ticket.timeline.length ? 'One Veteran loss, last moments' : 'Timeline'),
+        ticket.timeline.length
+          ? el('ol', { class: 'timeline' }, ticket.timeline.map(event => el('li', {}, el('time', {}, event.clock), el('span', { class: `tone-${event.tone}` }, event.text))))
+          : el('p', {}, 'No losing run to show.'),
+        el('h4', { style: 'margin-top:16px' }, 'When you play it, check'),
+        el('ol', {}, ticket.checklist.map(item => el('li', {}, item))))),
+    el('div', { class: 'review' },
+      el('div', { class: 'actions' },
+        el('a', { class: 'button play', href: playHref, title: fileMode ? 'Serve the folder first (see the note at the top)' : null }, `▶ Play Night ${ticket.night} yourself`),
+        el('span', { class: 'verdict-label' }, 'Your verdict:'), buttons),
+      notes, savedNote)));
+}
+
+document.getElementById('export').addEventListener('click', () => {
+  const reviews = tickets.map(t => ({ id: t.id, night: t.night, animatronic: t.animatronic.name, title: t.title, severity: t.severity, ...store.get(t.id) }));
+  const blob = new Blob([JSON.stringify({ report: data.meta.generatedAt, reviews }, null, 2)], { type: 'application/json' });
+  const link = el('a', { href: URL.createObjectURL(blob), download: 'balance-review-verdicts.json' });
+  document.body.append(link); link.click(); link.remove();
+  document.getElementById('export-note').textContent = `${reviews.filter(r => r.verdict).length} of ${reviews.length} reviewed.`;
+});
+
+const map = document.getElementById('map');
+map.append(el('thead', {}, el('tr', {}, el('th', {}, 'Player'), data.nights.map(n => el('th', { style: 'text-align:center' }, `Night ${n.night}`)))));
+const body = el('tbody');
+for (const player of data.players) {
+  body.append(el('tr', {}, el('td', {}, player.label), data.nights.map(n => {
+    const rate = n.results[player.id].winRate;
+    return el('td', { class: 'rate', style: `background:${rateColor(rate)}` }, pct(rate));
+  })));
+}
+body.append(el('tr', {}, el('td', {}, 'Verdict'), data.nights.map(n => el('td', { style: 'text-align:center' }, el('span', { class: `status ${n.status}` }, STATUS[n.status])))));
+map.append(body);
+
+const nightsBox = document.getElementById('nights');
+for (const night of data.nights) {
+  const names = Object.fromEntries(night.audit.animatronics.map(a => [a.id, a.name]));
+  names.outage = 'Power failure';
+  const causeIds = [...new Set(data.players.flatMap(p => Object.keys(night.results[p.id].causes)))];
+  const color = id => CAUSE_COLORS[causeIds.indexOf(id) % CAUSE_COLORS.length];
+  const bars = el('div', { class: 'bars' }, data.players.map(player => {
+    const result = night.results[player.id];
+    const losses = Object.entries(result.causes);
+    return el('div', { class: 'bar-row' }, el('span', {}, player.label),
+      el('div', { class: 'bar', role: 'img', 'aria-label': `${player.label}: ${losses.map(([id, n]) => `${names[id] ?? id} ${n}`).join(', ') || 'no losses'}` },
+        losses.map(([id, n]) => el('i', { style: `width:${(n / result.runs) * 100}%;background:${color(id)}`, title: `${names[id] ?? id}: ${n} of ${result.runs}` }))),
+      el('b', {}, `${Math.round((1 - result.winRate) * 100)}%`));
+  }));
+  const keys = el('div', { class: 'keys' }, causeIds.map(id => el('span', {}, el('span', { class: 'swatch', style: `background:${color(id)}` }), names[id] ?? id)));
+  const audit = el('div', { class: 'table-wrap' }, el('table', {},
+    el('thead', {}, el('tr', {}, ['Animatronic', 'Door', 'Warning', 'Cues', 'Min. door time', 'Min. power', 'Config check'].map(h => el('th', {}, h)))),
+    el('tbody', {}, night.audit.animatronics.map(a => el('tr', {},
+      el('td', {}, el('span', { class: 'swatch', style: `background:${a.color}` }), a.name), el('td', {}, a.side),
+      el('td', {}, `${a.warning.toFixed(2)} s`), el('td', {}, a.cues.length ? a.cues.length : el('span', { class: 'issue' }, 'none')),
+      el('td', {}, pct(a.doorDuty)), el('td', {}, a.minPower.toFixed(1)),
+      el('td', { class: 'issue' }, a.issues.map(i => i.text).join(' ') || el('span', { style: 'color:var(--mint)' }, 'OK')))))));
+  const removal = night.removal ? el('div', {}, el('h4', {}, 'Leave-one-out test (win rate with each animatronic removed)'),
+    el('div', { class: 'table-wrap' }, el('table', {}, el('tbody', {}, night.removal.map(r => el('tr', {},
+      el('td', {}, `Without ${r.name}`), el('td', { class: 'rate', style: `background:${rateColor(r.winRate)}` }, pct(r.winRate)),
+      el('td', {}, `${r.lift >= 0 ? '+' : '−'}${Math.abs(Math.round(r.lift * 100))} pts`))))))) : null;
+  nightsBox.append(el('details', { class: 'night', open: night.status !== 'fair' },
+    el('summary', {}, el('strong', {}, `Night ${night.night}`), el('span', { class: `status ${night.status}` }, STATUS[night.status]), el('span', {}, night.roster.join(' · '))),
+    el('div', { class: 'night-body' },
+      el('div', {}, el('h4', {}, `Losses by cause (${night.results[data.players[0].id].runs} nights per player)`), bars, keys),
+      el('div', {}, el('h4', {}, `Animatronic audit · ${night.audit.spare.toFixed(0)} spare power after base drain`), audit),
+      removal)));
+}
+
+document.getElementById('players').append(...data.players.map(p => el('div', { class: 'player' }, el('strong', {}, p.label), p.blurb)));
+const log = document.getElementById('log');
+for (const line of data.log) {
+  log.append(el('span', { class: `tone-${line.tone}` }, `${'  '.repeat(line.indent)}${line.text}`), '\n');
+}
+document.getElementById('footer').textContent = `Thresholds: unwinnable if the perfect bot wins < ${pct(data.thresholds.unwinnable)}; beyond humans if Veterans win < ${pct(data.thresholds.beyondHumans)}; expert-only if Average players win < ${pct(data.thresholds.expertOnly)}; an animatronic is a cause if removing it lifts the win rate ≥ ${Math.round(data.thresholds.culpritLift * 100)} points. Human reaction floor: ${data.meta.reactionFloor} s.`;
+if (location.hash) document.querySelector(location.hash)?.scrollIntoView();
+</script>
+</body>
+</html>

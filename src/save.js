@@ -2,7 +2,8 @@ import { NIGHTS } from './config.js';
 
 // Development pages (including every regression-test frame) save under their own key,
 // so testing never touches a player's real progress.
-export const SAVE_KEYS = { play: 'fnaf1-progress', dev: 'fnaf1-progress-dev' };
+// Human review sessions (opened from the balance agent's report) also get their own key.
+export const SAVE_KEYS = { play: 'fnaf1-progress', dev: 'fnaf1-progress-dev', review: 'fnaf1-progress-review' };
 // One star for beating the final night; Night 6 and Custom Night stars would raise this.
 export const MAX_STARS = 1;
 const fresh = () => ({ night: 1, stars: 0, muted: false });
